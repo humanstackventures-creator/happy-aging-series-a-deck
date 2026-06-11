@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Happy Aging - Series A</title>
+<title>Happy Aging - Series A (v7)</title>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,500;1,6..96,600;1,6..96,700;1,6..96,800;1,6..96,900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 :root {
   /* Dark palette */
@@ -20,13 +21,183 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#0c0c0d; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; font-family:'DM Sans',sans-serif; overflow:hidden; }
 .deck { position:relative; width:1280px; height:720px; overflow:hidden; box-shadow:0 10px 50px rgba(0,0,0,.45); transform-origin:top center; }
-@media (max-width:1300px) {
+@media (max-width:1300px) and (min-width:769px) {
   .deck { transform:scale(calc(100vw / 1280)); }
   body { justify-content:flex-start; padding-top:0; }
 }
+
+/* ===================== MOBILE ===================== */
 @media (max-width:768px) {
+  body { overflow:hidden; }
+  .deck { width:100vw !important; height:100vh !important; height:100dvh !important; transform:none !important; }
+  .slide { flex-direction:column !important; overflow-y:auto !important; -webkit-overflow-scrolling:touch; }
   .nav { display:none !important; }
-  .ctr { bottom:4px !important; font-size:9px !important; }
+  .ctr { bottom:6px !important; font-size:10px !important; }
+  .prog { height:2px !important; }
+
+  /* Footer */
+  .foot { padding:8px 20px 10px !important; }
+  .foot span { font-size:8px !important; }
+  .foot-logo { height:9px !important; }
+
+  /* Typography scale */
+  .h1 { font-size:24px !important; }
+  .h1.lg { font-size:28px !important; }
+  .sub { font-size:12px !important; }
+  .eyebrow { font-size:10px !important; }
+
+  /* ---- SLIDE 1 · COVER ---- */
+  #s1 img { object-position:center !important; }
+
+  /* ---- SLIDE 2 · PROBLEM ---- */
+  #s2-problem > div:first-child { padding:32px 24px !important; }
+  #s2-problem > div:first-child > div:first-child { font-size:22px !important; }
+  #s2-problem > div:first-child > div:first-child span { font-size:26px !important; }
+  #s2-problem > div:first-child > div:last-child { font-size:14px !important; }
+
+  /* ---- SLIDE 3 · SOLUTION ---- */
+  #s3-solution > div:first-child { flex-direction:column !important; }
+  #s3-solution > div:first-child > div:first-child { width:100% !important; padding:28px 24px 20px !important; }
+  #s3-solution > div:first-child > div:first-child > div { font-size:22px !important; margin-bottom:16px !important; }
+  #s3-solution > div:first-child > div:first-child > div img { height:22px !important; }
+  #s3-solution > div:first-child > div:first-child > div span { font-size:28px !important; }
+  #s3-solution > div:first-child > div:last-child { width:100% !important; height:50vh !important; min-height:280px; }
+  #s3-solution > div:first-child > div:last-child > div:last-child > div { font-size:20px !important; }
+
+  /* ---- SLIDE 4 · AT A GLANCE ---- */
+  #s4-glance > div { padding:24px 16px !important; }
+  #s4-glance .serif { font-size:20px !important; }
+  #s4-glance .serif img { height:18px !important; }
+  /* Main card → stack vertically */
+  #s4-glance > div > div:nth-child(2) { flex-direction:column !important; width:100% !important; padding:16px !important; min-height:auto !important; }
+  /* Left mission text */
+  #s4-glance > div > div:nth-child(2) > div:first-child { border-right:none !important; border-bottom:1px solid rgba(0,0,0,.06) !important; padding:8px 8px 16px !important; }
+  #s4-glance > div > div:nth-child(2) > div:first-child > div { font-size:14px !important; white-space:normal !important; line-height:1.8 !important; }
+  #s4-glance > div > div:nth-child(2) > div:first-child > div img { width:36px !important; height:24px !important; }
+  #s4-glance > div > div:nth-child(2) > div:first-child > div span { font-size:17px !important; }
+  /* Metric grid → 2 cols */
+  #s4-glance > div > div:nth-child(2) > div:nth-child(2) { grid-template-columns:1fr 1fr !important; }
+  #s4-glance > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) { font-size:24px !important; }
+  /* Revenue bars */
+  #s4-glance > div > div:nth-child(2) > div:last-child { border-left:none !important; border-top:1px solid rgba(0,0,0,.06) !important; padding:16px 0 0 !important; }
+
+  /* ---- SLIDE 5 · COMPETITIVE ---- */
+  #s5-competitive > div:first-child { flex-direction:column !important; padding:0 !important; }
+  #s5-competitive > div:first-child > div:first-child { flex:none !important; padding:28px 24px 16px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:first-child { font-size:22px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:first-child span { font-size:28px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:nth-child(2) { font-size:14px !important; }
+  /* Competitor ads collage */
+  #s5-competitive > div:first-child > div:first-child > div:last-child { width:100% !important; height:160px !important; margin-top:16px !important; overflow:hidden; }
+  #s5-competitive > div:first-child > div:first-child > div:last-child > div { width:65px !important; height:115px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(1) { left:0 !important; }
+  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(2) { left:48px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(3) { left:96px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(4) { left:144px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(5) { left:192px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(6) { left:240px !important; }
+  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(7) { left:288px !important; }
+  /* Quadrant chart */
+  #s5-competitive > div:first-child > div:last-child { flex:none !important; padding:0 24px 20px !important; }
+  #s5-competitive > div:first-child > div:last-child > div { width:300px !important; height:300px !important; margin:0 auto; }
+
+  /* ---- SLIDE 6 · THESIS ---- */
+  #s6-thesis > div:first-child { padding:24px 20px 40px !important; }
+  #s6-thesis > div:first-child > div:nth-child(2) { font-size:22px !important; margin-bottom:20px !important; }
+  #s6-thesis > div:first-child > div:nth-child(2) span { font-size:28px !important; }
+  #s6-thesis > div:first-child > div:last-child { flex-direction:column !important; gap:12px !important; overflow-y:auto !important; }
+  #s6-thesis > div:first-child > div:last-child > div { flex:none !important; }
+  #s6-thesis > div:first-child > div:last-child > div > div:first-child { height:auto !important; padding:16px 16px 10px !important; }
+  #s6-thesis > div:first-child > div:last-child > div > div:first-child > div:nth-child(2) { font-size:16px !important; height:auto !important; margin-bottom:6px !important; }
+  #s6-thesis > div:first-child > div:last-child > div > div:first-child > div:last-child { font-size:12px !important; }
+  #s6-thesis > div:first-child > div:last-child > div > div:last-child { height:140px !important; flex:none !important; }
+
+  /* ---- SLIDE 7 · PRODUCTS ---- */
+  #s5-products > div > div:first-child { padding:20px 24px 12px !important; }
+  #s5-products > div > div:first-child > div { font-size:22px !important; }
+  #s5-products > div > div:first-child > div span { font-size:28px !important; }
+  #s5-products > div > div:nth-child(2) { grid-template-columns:1fr 1fr !important; }
+
+  /* ---- SLIDE 8 · REVENUE TRAJECTORY ---- */
+  #s7-revenue > div { padding:24px 20px 32px !important; }
+  #s7-revenue > div > div:first-child > div:first-child { font-size:22px !important; }
+  #s7-revenue > div > div:first-child > div:first-child span { font-size:28px !important; }
+  #s7-revenue > div > div:nth-child(2) { flex-direction:column !important; margin-top:20px !important; }
+  #s7-revenue > div > div:nth-child(2) > div:first-child { padding:0 !important; }
+  #s7-revenue > div > div:nth-child(2) > div:first-child > div:first-child > div > div:first-child { font-size:7px !important; }
+  #s7-revenue > div > div:nth-child(2) > div:last-child { width:100% !important; flex-direction:row !important; gap:16px !important; padding:12px 0 !important; border-top:1px solid rgba(0,0,0,.06); }
+  #s7-revenue > div > div:nth-child(2) > div:last-child > div { padding:0 !important; text-align:center; }
+  #s7-revenue > div > div:nth-child(2) > div:last-child > div > div:first-child { font-size:24px !important; }
+  #s7-revenue > div > div:nth-child(2) > div:last-child > div > div:last-child { font-size:10px !important; }
+
+  /* ---- SLIDE 9 · RETENTION ---- */
+  #s8-retention > div { padding:24px 16px 0 !important; }
+  #s8-retention > div > div:first-child > div { font-size:20px !important; }
+  #s8-retention > div > div:first-child > div span { font-size:26px !important; }
+  #s8-retention > div > div:nth-child(2) { flex-direction:column !important; gap:24px !important; }
+
+  /* ---- SLIDE 10 · CAC / UNIT ECONOMICS ---- */
+  #s9-cac > div { padding:24px 16px 0 !important; }
+  #s9-cac > div > div:first-child > div { font-size:20px !important; }
+  #s9-cac > div > div:first-child > div span { font-size:26px !important; }
+  #s9-cac > div > div:nth-child(2) { flex-direction:column !important; gap:20px !important; }
+
+  /* ---- SLIDE 11 · CHANNELS ---- */
+  #s10-channels > div > div:first-child { padding:24px 20px 0 !important; }
+  #s10-channels > div > div:first-child > div:first-child { font-size:22px !important; }
+  #s10-channels > div > div:first-child > div:first-child span { font-size:28px !important; }
+  /* Hide floating callouts on mobile — too complex */
+  #s10-channels > div > div:nth-child(2) { display:none !important; }
+  #s10-channels > div > div:nth-child(3) { margin:16px 20px 0 !important; padding:8px 0 16px !important; max-height:none !important; gap:8px !important; }
+
+  /* ---- SLIDE 12 · RETAIL ---- */
+  #s13-retail > div:first-child { display:none !important; } /* hide right image */
+  #s13-retail > div:nth-child(2) { width:100% !important; padding:24px 20px 0 !important; }
+  #s13-retail > div:nth-child(2) > div:first-child > div:last-child { font-size:22px !important; }
+  #s13-retail > div:nth-child(2) > div:first-child > div:last-child span { font-size:28px !important; }
+  #s13-retail > div:nth-child(2) > div:nth-child(2) { flex-direction:column !important; gap:20px !important; margin-top:16px !important; }
+  #s13-retail > div:nth-child(2) > div:nth-child(2) > div:last-child { width:100% !important; }
+  /* Bottom logos */
+  #s13-retail > div:nth-child(2) > div:last-child { flex-direction:column !important; gap:12px !important; margin-top:20px !important; padding:10px 0 20px !important; }
+  #s13-retail > div:nth-child(2) > div:last-child > div:nth-child(2) { display:none !important; }
+
+  /* ---- SLIDE 13 · BRAND ---- */
+  #s12-brand > div { padding:20px 16px 16px !important; }
+  #s12-brand > div > div:first-child > div { font-size:20px !important; }
+  #s12-brand > div > div:first-child > div span { font-size:26px !important; }
+  #s12-brand > div > div:nth-child(2) > div:last-child img { width:60px !important; }
+  #s12-brand > div > div:last-child { flex-direction:column !important; gap:8px !important; flex:none !important; }
+  #s12-brand > div > div:last-child > div { height:140px !important; flex:none !important; }
+
+  /* ---- SLIDE 14 · TEAM ---- */
+  #s14-team > div { padding:24px 20px 40px !important; overflow-y:auto !important; }
+  #s14-team > div > div:nth-child(2) { font-size:22px !important; margin-bottom:20px !important; }
+  #s14-team > div > div:nth-child(2) span { font-size:28px !important; }
+  #s14-team > div > div:nth-child(3) { grid-template-columns:1fr 1fr !important; gap:16px !important; margin-bottom:20px !important; }
+  #s14-team > div > div:nth-child(3) > div > div:first-child { width:56px !important; height:56px !important; }
+  #s14-team > div > div:nth-child(3) > div > div:nth-child(2) { font-size:13px !important; }
+  #s14-team > div > div:nth-child(3) > div > div:nth-child(3) { font-size:9px !important; padding:3px 8px !important; }
+  #s14-team > div > div:nth-child(3) > div > div:nth-child(4) { font-size:10px !important; }
+  #s14-team > div > div:nth-child(4) { grid-template-columns:1fr 1fr !important; gap:12px !important; }
+  #s14-team > div > div:nth-child(4) > div > div:first-child { width:48px !important; height:48px !important; }
+  #s14-team > div > div:nth-child(4) > div > div:nth-child(2) { font-size:12px !important; }
+
+  /* ---- SLIDE 15 · USE OF PROCEEDS ---- */
+  #s15-proceeds > div { padding:24px 20px 40px !important; }
+  #s15-proceeds > div > div:first-child > div { font-size:22px !important; }
+  #s15-proceeds > div > div:first-child > div span { font-size:28px !important; }
+  #s15-proceeds > div > div:last-child { flex-direction:column !important; gap:16px !important; }
+  #s15-proceeds > div > div:last-child > div > div:first-child { height:auto !important; margin-bottom:8px !important; }
+  #s15-proceeds > div > div:last-child > div > div:first-child > div:first-child { font-size:16px !important; }
+  #s15-proceeds > div > div:last-child > div > div:last-child { height:180px !important; flex:none !important; }
+
+  /* ---- SLIDE 16 · CLOSING ---- */
+  #s16-closing img { object-position:center !important; }
+
+  /* ---- EMAIL GATE ---- */
+  #email-gate > div { padding:24px 20px !important; max-width:100% !important; }
+  #email-gate > div > img { width:140px !important; margin-bottom:28px !important; }
+  #email-gate input, #email-gate button { font-size:16px !important; } /* prevent iOS zoom */
 }
 .slide { display:none; width:100%; height:100%; position:absolute; top:0; left:0; }
 .slide.active { display:flex; }
@@ -215,90 +386,49 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 <div class="deck">
 
 <!-- ============================================ -->
-<!-- S1 · COVER -->
+<!-- SLIDE 1 · COVER (same as v6) -->
 <!-- ============================================ -->
 <div class="slide dark active" id="s1" style="background:none">
-  <!-- Full-bleed cover image -->
   <img src="Images%20Deck/ha-cover-new.png" alt="Happy Aging Cover" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
   <div class="foot" style="z-index:2"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>01</span></div>
 </div>
 
 <!-- ============================================ -->
-<!-- S2 · MISSION / POSITIONING -->
+<!-- SLIDE 2 · PROBLEM (NEW — emotional hook) -->
 <!-- ============================================ -->
-<div class="slide light" id="s2">
-  <div style="display:flex;width:100%;height:100%">
-    <!-- Left: mission text -->
-    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 40px 60px 72px;border-right:1px solid rgba(192,65,76,.18)">
-      <div style="font-size:42px;font-weight:500;color:var(--lt-ink);line-height:1.4;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:-0.3px">
-        The leading<br>
-        <span style="color:var(--wine);font-weight:400;font-style:italic">longevity brand</span><br>
-        built for women<br>
-        by combining<br>
-        <span style="color:var(--wine);font-weight:400;font-style:italic">science, community</span><br>
-        and <span style="color:var(--wine);font-weight:400;font-style:italic">trust</span>
-      </div>
+<div class="slide light" id="s2-problem" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
+  <div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 120px;position:relative;z-index:2">
+    <!-- Headline -->
+    <div style="font-family:'DM Sans',sans-serif;font-weight:500;font-size:38px;color:var(--lt-ink);line-height:1.3;letter-spacing:-.3px;max-width:800px">
+      After 35, she starts losing energy, mental clarity, and confidence. <span style="font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:42px;color:var(--wine)">She doesn't feel like herself anymore.</span>
     </div>
-    <!-- Right: brand image -->
-    <div style="flex:1;position:relative;overflow:hidden">
-      <img src="Images%20Deck/Happy%20Aging%20-%20Photo%20by%20Ton%20Gomes-100.jpg" alt="Happy Aging Brand" style="width:100%;height:100%;object-fit:cover">
+    <!-- Divider -->
+    <div style="width:40px;height:1px;background:rgba(192,65,76,.15);margin-top:32px"></div>
+    <!-- Sub-text -->
+    <div style="font-family:'Inter',sans-serif;font-size:16.5px;font-weight:400;color:var(--lt-mut);line-height:1.65;margin-top:24px;max-width:600px">
+      Her body is changing at the cellular level. She's tried everything. <strong style="color:var(--lt-ink)">Nothing was built for her.</strong>
     </div>
   </div>
   <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>02</span></div>
 </div>
 
 <!-- ============================================ -->
-<!-- S3 · MARKET WHITE SPACE (Beige) -->
+<!-- SLIDE 3 · SOLUTION (NEW — Martha visual proof) -->
 <!-- ============================================ -->
-<div class="slide light" id="s4" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
-  <div style="display:flex;flex:1;width:100%;height:100%;align-items:center">
-    <!-- Left: Text content -->
-    <div style="flex:.38;display:flex;flex-direction:column;justify-content:center;padding:0 20px 0 120px">
-      <!-- Eyebrow -->
-      <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:20px">Market White Space</div>
-      <!-- Big headline -->
-      <div style="font-family:'Inter',sans-serif;font-size:32px;font-weight:500;line-height:1.4;letter-spacing:-.3px;color:var(--lt-ink)">A $54Bn category with <span style="color:var(--wine);font-weight:400;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:40px">no one speaking to her</span></div>
-      <!-- Body -->
-      <div style="font-size:18px;color:var(--lt-mut);line-height:1.6;margin-top:24px">Every longevity brand on the shelf was built for men. Dark packaging, biohacking language, performance-first.</div>
-      <!-- Stat callouts -->
-      <div style="margin-top:32px;display:flex;gap:28px">
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:600;color:var(--wine);letter-spacing:-1px">64%</span>
-          <span style="font-size:16px;color:var(--lt-ink);font-weight:500;line-height:1.4">of supplement buyers<br>are women</span>
-        </div>
-        <div style="width:1px;background:rgba(0,0,0,.08)"></div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:600;color:var(--wine);letter-spacing:-1px">17%</span>
-          <span style="font-size:16px;color:var(--lt-ink);font-weight:500;line-height:1.4">longevity supplement<br>CAGR</span>
-        </div>
+<div class="slide light" id="s3-solution" style="background:linear-gradient(155deg,#FDFCFA 0%,#FAF6F1 30%,#F7F0EA 60%,#F3EBE4 100%)">
+  <div style="width:100%;height:100%;display:flex;position:relative;z-index:2">
+    <!-- Left: Product description -->
+    <div style="width:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 48px 60px 48px;text-align:center">
+      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.3;letter-spacing:-.3px;margin-bottom:32px">
+        <img src="Images%20Deck/ha-wordmark-black.png" alt="Happy Aging" style="height:30px;vertical-align:baseline;margin-right:5px"> is the leading longevity brand built for <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">how she ages, lives and feels.</span>
       </div>
     </div>
-    <!-- Right: Quadrant chart -->
-    <div style="flex:.62;position:relative;display:flex;align-items:center;justify-content:center;padding:0 44px 0 0">
-      <div style="position:relative;width:420px;height:420px">
-        <!-- Axes -->
-        <div style="position:absolute;top:28px;bottom:28px;left:50%;width:1px;background:rgba(28,24,20,.1)"></div>
-        <div style="position:absolute;left:28px;right:28px;top:50%;height:1px;background:rgba(28,24,20,.1)"></div>
-        <!-- Axis labels -->
-        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lt-mut)">Women-First</div>
-        <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lt-mut)">Mass Market</div>
-        <div style="position:absolute;left:-44px;top:50%;transform:translateY(-50%) rotate(-90deg);white-space:nowrap;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lt-mut)">Wellness</div>
-        <div style="position:absolute;right:-44px;top:50%;transform:translateY(-50%) rotate(90deg);white-space:nowrap;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lt-mut)">Longevity</div>
-        <!-- Empty quadrant subtle fill -->
-        <div style="position:absolute;top:28px;right:28px;width:calc(50% - 28px);height:calc(50% - 28px);background:rgba(192,65,76,.04);border-radius:8px"></div>
-        <!-- Happy Aging - top right -->
-        <div style="position:absolute;top:calc(10% + 14px);right:calc(18% + 14px);transform:translate(50%,-50%);background:var(--wine);border-radius:10px;padding:16px 24px;z-index:2;display:flex;align-items:center;justify-content:center">
-          <img src="Logos/Logos%20CPG/HappyAging_Black.png" style="height:12px;filter:invert(1)">
-        </div>
-        <!-- Competitor logos -->
-        <div style="position:absolute;top:65px;left:70px;padding:8px 12px"><img src="Logos/Logos%20CPG/Moon%20Juice.jpeg" style="height:36px;mix-blend-mode:multiply"></div>
-        <div style="position:absolute;top:120px;left:20px;padding:8px 12px"><img src="Logos/Logos%20CPG/Ritual%20Logo.png" style="height:24px;mix-blend-mode:multiply"></div>
-        <div style="position:absolute;top:170px;left:100px;padding:8px 12px"><img src="Logos/Logos%20CPG/Seed%20Logo.jpg" style="height:22px;mix-blend-mode:multiply"></div>
-        <div style="position:absolute;bottom:110px;left:30px;padding:8px 12px"><img src="Logos/Logos%20CPG/Thorne%20Logo.png" style="height:22px;mix-blend-mode:multiply"></div>
-        <div style="position:absolute;bottom:65px;left:95px;padding:8px 12px"><img src="Logos/Logos%20CPG/AG1%20Logo.png" style="height:30px;mix-blend-mode:multiply"></div>
-        <div style="position:absolute;bottom:55px;right:50px;padding:10px 14px"><img src="Logos/Logos%20CPG/Tru%20Niagen%20Logo.png" style="height:42px;mix-blend-mode:multiply"></div>
-        <div style="position:absolute;bottom:45px;right:15px;padding:10px 14px"><img src="Logos/Logos%20CPG/Elysiun%20Logo.png" style="height:32px;mix-blend-mode:multiply"></div>
-        <div style="position:absolute;bottom:120px;right:45px;padding:10px 14px"><img src="Logos/Logos%20CPG/Timeline.png" style="height:32px;mix-blend-mode:multiply"></div>
+    <!-- Right: Martha image -->
+    <div style="width:50%;height:100%;position:relative;overflow:hidden">
+      <img src="Images%20Deck/martha-longevity-shot.jpg" alt="Martha Graeff" style="width:100%;height:100%;object-fit:cover">
+      <!-- Overlay text at bottom -->
+      <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent 0%,rgba(0,0,0,.3) 30%,rgba(0,0,0,.7) 70%,rgba(0,0,0,.85) 100%);padding:32px 32px 48px">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#fff;line-height:1.2">Chronologically 8 years older.<br><span style="color:var(--dk-accent)">Looks 10 years younger.</span></div>
       </div>
     </div>
   </div>
@@ -306,9 +436,9 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 </div>
 
 <!-- ============================================ -->
-<!-- S4 · AT A GLANCE (Beige) -->
+<!-- SLIDE 4 · AT A GLANCE (from v6 slide 4, "gross margins" → "gross margin") -->
 <!-- ============================================ -->
-<div class="slide light" id="s3" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
+<div class="slide light" id="s4-glance" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 64px">
     <!-- Title -->
     <div class="serif" style="font-size:28px;font-weight:500;text-align:center;margin-bottom:24px">
@@ -340,7 +470,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
         <div style="padding:20px 18px;border-bottom:1px solid rgba(0,0,0,.06)">
           <div style="width:28px;height:1px;background:var(--wine);opacity:.4;margin-bottom:10px"></div>
           <div style="font-size:34px;font-weight:700;color:var(--lt-ink)">74%</div>
-          <div style="font-size:11px;color:var(--lt-mut);margin-top:3px;font-weight:500">gross<br>margins</div>
+          <div style="font-size:11px;color:var(--lt-mut);margin-top:3px;font-weight:500">gross<br>margin</div>
         </div>
         <!-- Row 2 -->
         <div style="padding:20px 18px;border-right:1px solid rgba(0,0,0,.06)">
@@ -362,7 +492,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
       <!-- Right: revenue bar chart -->
       <div style="flex:.65;display:flex;align-items:center;justify-content:center;padding:10px 12px 14px;border-left:1px solid rgba(0,0,0,.06);position:relative">
         <div style="position:relative">
-          <!-- CAGR bubble (Hims-style floating circle, overlapping bars) -->
+          <!-- CAGR bubble -->
           <div style="position:absolute;top:0;left:35%;transform:translate(-50%,-20%);z-index:2;width:72px;height:72px;border-radius:50%;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.1);display:flex;flex-direction:column;align-items:center;justify-content:center">
             <div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--wine);line-height:1">360%</div>
             <div style="font-size:8px;color:var(--lt-mut);letter-spacing:.08em;font-weight:500;margin-top:2px">CAGR</div>
@@ -394,9 +524,150 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 </div>
 
 <!-- ============================================ -->
-<!-- S5 · PRODUCT LINEUP -->
+<!-- SLIDE 5 · COMPETITIVE LANDSCAPE (moved from slide 11) -->
 <!-- ============================================ -->
-<div class="slide light" id="s9" style="background:#FAF8F4">
+<!-- TODO: Add Omre, and other top NMN brands to the quadrant chart (Bill wants more competitors from a real search) -->
+<div class="slide light" id="s5-competitive" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
+  <div style="display:flex;flex:1;width:100%;height:100%;align-items:center">
+    <!-- Left: Text content -->
+    <div style="flex:.38;display:flex;flex-direction:column;justify-content:center;padding:0 20px 0 120px">
+      <!-- Big headline -->
+      <div style="font-family:'Inter',sans-serif;font-size:32px;font-weight:500;line-height:1.4;letter-spacing:-.3px;color:var(--lt-ink)">A $54Bn category with <span style="color:var(--wine);font-weight:400;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:40px">no one speaking to her</span></div>
+      <!-- Body -->
+      <div style="font-size:18px;color:var(--lt-mut);line-height:1.6;margin-top:24px"><strong style="color:var(--lt-ink)">More than 60% of supplement buyers are women, yet every longevity brand on the shelf was built for men.</strong> Dark packaging, biohacking language, performance-first.</div>
+      <!-- Competitor ads collage — 7 ads fanned -->
+      <div style="position:relative;margin-top:28px;height:230px;width:506px">
+        <!-- Ad 1: Elysium shirtless man -->
+        <div style="position:absolute;left:0;top:12px;width:97px;height:170px;border-radius:6px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.15);transform:rotate(-4deg);z-index:1">
+          <img src="Images%20Deck/competitor-ad-elysium-1.jpg" alt="Elysium ad" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- Ad 2: Tru Niagen dark navy -->
+        <div style="position:absolute;left:68px;top:4px;width:97px;height:170px;border-radius:6px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.15);transform:rotate(-1.5deg);z-index:2">
+          <img src="Images%20Deck/competitor-ad-truniagen-1.jpg" alt="Tru Niagen ad" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- Ad 3: Elysium waterfall man -->
+        <div style="position:absolute;left:136px;top:8px;width:97px;height:170px;border-radius:6px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.15);transform:rotate(1deg);z-index:3">
+          <img src="Images%20Deck/competitor-ad-elysium-2.jpg" alt="Elysium ad" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- Ad 4: Tru Niagen mountain runner -->
+        <div style="position:absolute;left:204px;top:2px;width:97px;height:170px;border-radius:6px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.15);transform:rotate(-2deg);z-index:4">
+          <img src="Images%20Deck/competitor-ad-truniagen-2.jpg" alt="Tru Niagen ad" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- Ad 5: AG1 male doctor -->
+        <div style="position:absolute;left:272px;top:10px;width:97px;height:170px;border-radius:6px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.15);transform:rotate(2deg);z-index:5">
+          <img src="Images%20Deck/competitor-ad-ag1-1.jpg" alt="AG1 ad" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- Ad 6: Thorne creatine -->
+        <div style="position:absolute;left:340px;top:6px;width:97px;height:170px;border-radius:6px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.15);transform:rotate(-1deg);z-index:6">
+          <img src="Images%20Deck/competitor-ad-thorne-1.jpg" alt="Thorne ad" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- Ad 7: Timeline creatine man's back (last/most visible) -->
+        <div style="position:absolute;left:408px;top:14px;width:97px;height:170px;border-radius:6px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.15);transform:rotate(3deg);z-index:7">
+          <img src="Images%20Deck/competitor-ad-timeline-creatine.jpg" alt="Timeline ad" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <!-- Label -->
+        <div style="position:absolute;bottom:-2px;left:0;font-size:9px;font-weight:500;letter-spacing:.08em;color:var(--lt-mut2);text-transform:uppercase">Competitor ads, all targeting men</div>
+      </div>
+    </div>
+    <!-- Right: Quadrant chart -->
+    <div style="flex:.62;position:relative;display:flex;align-items:center;justify-content:center;padding:0 44px 0 0">
+      <div style="position:relative;width:420px;height:420px">
+        <!-- Axes -->
+        <div style="position:absolute;top:28px;bottom:28px;left:50%;width:1px;background:rgba(28,24,20,.1)"></div>
+        <div style="position:absolute;left:28px;right:28px;top:50%;height:1px;background:rgba(28,24,20,.1)"></div>
+        <!-- Axis labels -->
+        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lt-mut)">Women-First</div>
+        <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lt-mut)">Mass Market</div>
+        <div style="position:absolute;left:-44px;top:50%;transform:translateY(-50%) rotate(-90deg);white-space:nowrap;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lt-mut)">Wellness</div>
+        <div style="position:absolute;right:-44px;top:50%;transform:translateY(-50%) rotate(90deg);white-space:nowrap;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lt-mut)">Longevity</div>
+        <!-- Empty quadrant subtle fill -->
+        <div style="position:absolute;top:28px;right:28px;width:calc(50% - 28px);height:calc(50% - 28px);background:rgba(192,65,76,.04);border-radius:8px"></div>
+        <!-- Happy Aging - top right -->
+        <div style="position:absolute;top:calc(10% + 14px);right:calc(18% + 14px);transform:translate(50%,-50%);background:var(--wine);border-radius:10px;padding:16px 24px;z-index:2;display:flex;align-items:center;justify-content:center">
+          <img src="Logos/Logos%20CPG/HappyAging_Black.png" style="height:12px;filter:invert(1)">
+        </div>
+        <!-- Competitor logos -->
+        <div style="position:absolute;top:65px;left:70px;padding:8px 12px"><img src="Logos/Logos%20CPG/Moon%20Juice.jpeg" style="height:36px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;top:120px;left:20px;padding:8px 12px"><img src="Logos/Logos%20CPG/Ritual%20Logo.png" style="height:24px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;top:170px;left:100px;padding:8px 12px"><img src="Logos/Logos%20CPG/Seed%20Logo.jpg" style="height:22px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;bottom:110px;left:30px;padding:8px 12px"><img src="Logos/Logos%20CPG/Thorne%20Logo.png" style="height:22px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;bottom:65px;left:95px;padding:8px 12px"><img src="Logos/Logos%20CPG/AG1%20Logo.png" style="height:30px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;bottom:55px;right:50px;padding:10px 14px"><img src="Logos/Logos%20CPG/Tru%20Niagen%20Logo.png" style="height:42px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;bottom:45px;right:15px;padding:10px 14px"><img src="Logos/Logos%20CPG/Elysiun%20Logo.png" style="height:32px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;bottom:120px;right:45px;padding:10px 14px"><img src="Logos/Logos%20CPG/Timeline.png" style="height:32px;mix-blend-mode:multiply"></div>
+        <!-- New competitors -->
+        <div style="position:absolute;bottom:85px;right:120px;padding:8px 12px"><img src="Logos/Logos%20CPG/NOVOS_Logo.png" style="height:18px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;bottom:155px;left:55px;padding:8px 12px"><img src="Logos/Logos%20CPG/Fatty15_Logo.png" style="height:22px;mix-blend-mode:multiply"></div>
+        <div style="position:absolute;bottom:160px;right:25px;padding:8px 12px"><img src="Logos/Logos%20CPG/KataCor_Logo.png" style="height:18px;mix-blend-mode:multiply"></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>05</span></div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 6 · THESIS (reframed Why Now) -->
+<!-- ============================================ -->
+<div class="slide light" id="s6-thesis" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
+  <div style="width:100%;height:100%;display:flex;flex-direction:column;padding:32px 64px 48px;position:relative;z-index:2">
+
+    <!-- Eyebrow -->
+    <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:14px">THESIS</div>
+
+    <!-- Headline -->
+    <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px;max-width:1100px;margin-bottom:32px">
+      A new wellness category is emerging and <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">we're already leading it.</span>
+    </div>
+
+    <!-- 3 Cards row -->
+    <div style="display:flex;gap:20px;flex:1;min-height:0">
+
+      <!-- Card 1 -->
+      <div style="flex:1;background:#FFFFFF;border-radius:14px;display:flex;flex-direction:column;overflow:hidden;box-shadow:none">
+        <div style="padding:24px 24px 16px;height:195px;flex-shrink:0">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">01</div>
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;color:var(--lt-ink);line-height:1.2;letter-spacing:-.3px;margin-bottom:8px;height:54px">Science became the <span style="color:var(--wine)">new luxury</span></div>
+          <div style="font-size:14px;color:var(--lt-mut2);line-height:1.55">Consumers demand <strong>real science with cultural relevance.</strong></div>
+        </div>
+        <div style="flex:1;min-height:0;padding:0 12px 12px">
+          <img src="Images%20Deck/woman-capsule.jpg" alt="Science luxury" style="width:100%;height:100%;object-fit:cover;border-radius:10px">
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div style="flex:1;background:#FFFFFF;border-radius:14px;display:flex;flex-direction:column;overflow:hidden;box-shadow:none">
+        <div style="padding:24px 24px 16px;height:195px;flex-shrink:0">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">02</div>
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;color:var(--lt-ink);line-height:1.2;letter-spacing:-.3px;margin-bottom:8px;height:54px">Anti-aging is dying. <span style="color:var(--wine)">Pro-aging</span> is replacing it.</div>
+          <div style="font-size:14px;color:var(--lt-mut2);line-height:1.55">Women don't want biohacking protocols. They want to stick with <strong>something that works and fits their routine.</strong></div>
+        </div>
+        <div style="flex:1;min-height:0;padding:0 12px 12px">
+          <img src="Images%20Deck/woman-beach-hat.jpg" alt="Pro-aging" style="width:100%;height:100%;object-fit:cover;border-radius:10px">
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div style="flex:1;background:#FFFFFF;border-radius:14px;display:flex;flex-direction:column;overflow:hidden;box-shadow:none">
+        <div style="padding:24px 24px 16px;height:195px;flex-shrink:0">
+          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">03</div>
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;color:var(--lt-ink);line-height:1.2;letter-spacing:-.3px;margin-bottom:8px;height:54px">GLP-1 created a <span style="color:var(--wine)">new health consumer</span></div>
+          <div style="font-size:14px;color:var(--lt-mut2);line-height:1.55">Consumers are more health-literate than ever, but longevity shelves are still empty. <strong>CAC is cheaper today than it will ever be.</strong></div>
+        </div>
+        <div style="flex:1;min-height:0;padding:0 12px 12px">
+          <img src="Images%20Deck/longevity-shot-glass.jpg" alt="Pre-mainstream" style="width:100%;height:100%;object-fit:cover;border-radius:10px">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>06</span></div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 7 · PRODUCT LINEUP (same as v6) -->
+<!-- ============================================ -->
+<div class="slide light" id="s5-products" style="background:#FAF8F4">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;position:relative;z-index:2">
     <!-- Headline spanning top -->
     <div style="text-align:center;padding:32px 64px 20px">
@@ -444,73 +715,13 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 </div>
 
 <!-- ============================================ -->
-<!-- S6 · WHY NOW -->
+<!-- SLIDE 7 · REVENUE TRAJECTORY (same as v6) -->
 <!-- ============================================ -->
-<div class="slide light" id="s5-whynow" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
-  <div style="width:100%;height:100%;display:flex;flex-direction:column;padding:32px 64px 48px;position:relative;z-index:2">
-
-    <!-- Eyebrow -->
-    <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:14px">WHY NOW</div>
-
-    <!-- Headline -->
-    <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px;max-width:1100px;margin-bottom:32px">
-      Three forces converging on a <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">once-in-a-category</span> moment
-    </div>
-
-    <!-- 3 Cards row -->
-    <div style="display:flex;gap:20px;flex:1;min-height:0">
-
-      <!-- Card 1 -->
-      <div style="flex:1;background:#FFFFFF;border-radius:14px;display:flex;flex-direction:column;overflow:hidden;box-shadow:none">
-        <div style="padding:24px 24px 16px;height:175px;flex-shrink:0">
-          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">01</div>
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;color:var(--lt-ink);line-height:1.2;letter-spacing:-.3px;margin-bottom:8px;height:54px">Science became the <span style="color:var(--wine)">new luxury</span></div>
-          <div style="font-size:14px;color:var(--lt-mut2);line-height:1.55">Consumers demand <strong>real science with cultural relevance</strong></div>
-        </div>
-        <div style="flex:1;min-height:0;padding:0 12px 12px">
-          <img src="Images%20Deck/woman-capsule.jpg" alt="Science luxury" style="width:100%;height:100%;object-fit:cover;border-radius:10px">
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div style="flex:1;background:#FFFFFF;border-radius:14px;display:flex;flex-direction:column;overflow:hidden;box-shadow:none">
-        <div style="padding:24px 24px 16px;height:175px;flex-shrink:0">
-          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">02</div>
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;color:var(--lt-ink);line-height:1.2;letter-spacing:-.3px;margin-bottom:8px;height:54px">Anti-aging is dying. <span style="color:var(--wine)">Pro-aging</span> is replacing it.</div>
-          <div style="font-size:14px;color:var(--lt-mut2);line-height:1.55">Women want to age well on their own terms, <strong>not fight biology</strong></div>
-        </div>
-        <div style="flex:1;min-height:0;padding:0 12px 12px">
-          <img src="Images%20Deck/martha-longevity-shot.jpg" alt="Pro-aging" style="width:100%;height:100%;object-fit:cover;border-radius:10px">
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div style="flex:1;background:#FFFFFF;border-radius:14px;display:flex;flex-direction:column;overflow:hidden;box-shadow:none">
-        <div style="padding:24px 24px 16px;height:175px;flex-shrink:0">
-          <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">03</div>
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;color:var(--lt-ink);line-height:1.2;letter-spacing:-.3px;margin-bottom:8px;height:54px">GLP-1 created a <span style="color:var(--wine)">new health consumer</span></div>
-          <div style="font-size:14px;color:var(--lt-mut2);line-height:1.55">Millions now <strong>invest in science-backed health</strong> — longevity is next</div>
-        </div>
-        <div style="flex:1;min-height:0;padding:0 12px 12px">
-          <img src="Images%20Deck/longevity-shot-glass.jpg" alt="New health consumer" style="width:100%;height:100%;object-fit:cover;border-radius:10px">
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>06</span></div>
-</div>
-
-<!-- ============================================ -->
-<!-- S6 · REVENUE TRAJECTORY -->
-<!-- ============================================ -->
-<div class="slide light" id="s5" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
+<div class="slide light" id="s7-revenue" style="background:#FAFAFA">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:32px 64px 40px;position:relative;z-index:2">
 
     <!-- Header row -->
     <div style="margin-bottom:12px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:14px">REVENUE TRAJECTORY</div>
       <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px">
         Revenue <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">doubled</span> in 7 months...
       </div>
@@ -526,62 +737,62 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
         <!-- Jun -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
           <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$293K</div>
-          <div style="width:100%;height:156px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.2)"></div>
+          <div style="width:100%;height:156px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.35)"></div>
         </div>
         <!-- Jul -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$273K</div>
-          <div style="width:100%;height:145px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.25)"></div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
+          <div style="width:100%;height:145px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.35)"></div>
         </div>
         <!-- Aug -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$285K</div>
-          <div style="width:100%;height:152px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.3)"></div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
+          <div style="width:100%;height:152px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.35)"></div>
         </div>
         <!-- Sep -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$273K</div>
-          <div style="width:100%;height:145px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.35)"></div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
+          <div style="width:100%;height:145px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.35)"></div>
         </div>
         <!-- Oct -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
           <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$256K</div>
-          <div style="width:100%;height:136px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.4)"></div>
+          <div style="width:100%;height:136px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.35)"></div>
         </div>
         <!-- Capsules Launch marker -->
         <div style="width:0;position:relative;flex-shrink:0;margin:0 -5px;z-index:3">
-          <div style="position:absolute;bottom:0;top:-356px;left:0;border-left:2px dashed var(--wine);opacity:.4"></div>
-          <div style="position:absolute;top:-356px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--wine);color:#fff;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:12px;box-shadow:0 2px 8px rgba(192,65,76,.3)">Capsules Launch</div>
+          <div style="position:absolute;bottom:0;top:-356px;left:0;border-left:1.5px solid rgba(192,65,76,.3)"></div>
+          <div style="position:absolute;top:-356px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--wine)">Capsules Launch</div>
         </div>
         <!-- Nov -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$299K</div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
           <div style="width:100%;height:159px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.55)"></div>
         </div>
         <!-- Dec -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$320K</div>
-          <div style="width:100%;height:170px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.65)"></div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
+          <div style="width:100%;height:170px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.6)"></div>
         </div>
         <!-- Jan -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$363K</div>
-          <div style="width:100%;height:193px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.7)"></div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
+          <div style="width:100%;height:193px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.65)"></div>
         </div>
         <!-- Feb -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$396K</div>
-          <div style="width:100%;height:211px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.75)"></div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
+          <div style="width:100%;height:211px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.7)"></div>
         </div>
         <!-- Mar -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$459K</div>
-          <div style="width:100%;height:244px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.85)"></div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
+          <div style="width:100%;height:244px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.8)"></div>
         </div>
         <!-- Apr -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-          <div style="font-size:9px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$416K</div>
-          <div style="width:100%;height:221px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.9)"></div>
+          <div style="font-size:9px;font-weight:600;color:transparent;margin-bottom:3px">.</div>
+          <div style="width:100%;height:221px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.85)"></div>
         </div>
         <!-- May -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center">
@@ -606,18 +817,18 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
       </div>
       </div>
       <!-- Right callout panel -->
-      <div style="width:180px;flex-shrink:0;display:flex;flex-direction:column;gap:16px;justify-content:center;padding:20px 0">
-        <div style="background:rgba(255,255,255,.6);border-radius:12px;padding:20px;border-left:3px solid var(--wine)">
-          <div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:500;color:var(--wine);letter-spacing:-1px;line-height:1">+188%</div>
-          <div style="font-size:12px;color:var(--lt-mut2);font-weight:500;margin-top:4px">YoY revenue growth</div>
+      <div style="width:180px;flex-shrink:0;display:flex;flex-direction:column;gap:24px;justify-content:center;padding:20px 0">
+        <div style="padding:0 8px">
+          <div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:500;color:var(--wine);letter-spacing:-1px;line-height:1">+188%</div>
+          <div style="font-size:12px;color:var(--lt-mut2);font-weight:500;margin-top:6px">YoY revenue growth</div>
         </div>
-        <div style="background:rgba(255,255,255,.6);border-radius:12px;padding:20px;border-left:3px solid var(--wine)">
-          <div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:500;color:var(--wine);letter-spacing:-1px;line-height:1">$4.2M</div>
-          <div style="font-size:12px;color:var(--lt-mut2);font-weight:500;margin-top:4px">LTM revenue</div>
+        <div style="padding:0 8px">
+          <div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:500;color:var(--wine);letter-spacing:-1px;line-height:1">$4.2M</div>
+          <div style="font-size:12px;color:var(--lt-mut2);font-weight:500;margin-top:6px">LTM revenue</div>
         </div>
-        <div style="background:rgba(255,255,255,.6);border-radius:12px;padding:20px;border-left:3px solid var(--wine)">
-          <div style="font-family:'Inter',sans-serif;font-size:34px;font-weight:500;color:var(--wine);letter-spacing:-1px;line-height:1">$562K</div>
-          <div style="font-size:12px;color:var(--lt-mut2);font-weight:500;margin-top:4px">Best month (May '26)</div>
+        <div style="padding:0 8px">
+          <div style="font-family:'Inter',sans-serif;font-size:36px;font-weight:500;color:var(--wine);letter-spacing:-1px;line-height:1">$562K</div>
+          <div style="font-size:12px;color:var(--lt-mut2);font-weight:500;margin-top:6px">Best month (May '26)</div>
         </div>
       </div>
     </div>
@@ -627,13 +838,12 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 </div>
 
 <!-- ============================================ -->
-<!-- S7 · RETURNING MRR -->
+<!-- SLIDE 8 · RETURNING MRR / RETENTION (same as v6) -->
 <!-- ============================================ -->
-<div class="slide light" id="s11" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
+<div class="slide light" id="s8-retention" style="background:#FAFAFA">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;position:relative;z-index:2;padding:32px 64px 0">
     <!-- Section label + Headline -->
     <div style="margin-bottom:12px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:14px">RETENTION</div>
       <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px;max-width:900px">
         ...powered by a <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">recurring floor</span> that grows<br>every month...
       </div>
@@ -651,27 +861,26 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
         </div>
         <!-- MRR bars with circle overlapping last bar -->
         <div style="height:280px;display:flex;align-items:flex-end;gap:4px;position:relative;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.06)">
-          <!-- Feb '25: $34K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;font-weight:600;color:#1a1a1a;margin-bottom:3px">$34</div><div style="width:100%;height:37px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.15)"></div></div>
-          <!-- Mar: $42K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$42</div><div style="width:100%;height:46px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.2)"></div></div>
-          <!-- Apr: $50K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$50</div><div style="width:100%;height:54px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.25)"></div></div>
-          <!-- May: $58K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$58</div><div style="width:100%;height:63px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.3)"></div></div>
-          <!-- Jun: $68K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$68</div><div style="width:100%;height:74px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.35)"></div></div>
-          <!-- Jul: $78K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$78</div><div style="width:100%;height:85px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.4)"></div></div>
-          <!-- Aug: $90K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$90</div><div style="width:100%;height:98px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.45)"></div></div>
-          <!-- Sep: $102K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$102</div><div style="width:100%;height:110px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.5)"></div></div>
-          <!-- Oct: $115K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$115</div><div style="width:100%;height:125px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.55)"></div></div>
-          <!-- Nov: $130K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$130</div><div style="width:100%;height:141px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.6)"></div></div>
-          <!-- Dec: $148K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$148</div><div style="width:100%;height:161px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.65)"></div></div>
-          <!-- Jan '26: $155K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$155</div><div style="width:100%;height:168px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.7)"></div></div>
-          <!-- Feb: $165K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$165</div><div style="width:100%;height:179px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.78)"></div></div>
-          <!-- Mar: $180K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$180</div><div style="width:100%;height:195px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.85)"></div></div>
-          <!-- Apr: $195K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:#1a1a1a;margin-bottom:3px">$195</div><div style="width:100%;height:212px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.92)"></div></div>
-          <!-- May: $219K + overlapping circle --><div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative"><div style="font-size:8px;font-weight:700;color:var(--wine);margin-bottom:3px">$219</div><div style="width:100%;height:238px;border-radius:3px 3px 0 0;background:var(--wine)"></div>
-            <!-- 6.4x circle overlapping last bar -->
-            <div style="position:absolute;bottom:110px;right:-48px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 6px 28px rgba(0,0,0,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5">
-              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:32px;color:var(--wine);line-height:1">6.4x</div>
-              <div style="font-size:8px;font-weight:600;color:var(--lt-mut)">in 16 months</div>
-            </div>
+          <!-- Feb '25: $34K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;font-weight:600;color:var(--lt-mut2);margin-bottom:3px">$34</div><div style="width:100%;height:37px;border-radius:3px 3px 0 0;background:rgba(180,175,168,.3)"></div></div>
+          <!-- Mar: $42K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:46px;border-radius:3px 3px 0 0;background:rgba(180,175,168,.3)"></div></div>
+          <!-- Apr: $50K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:54px;border-radius:3px 3px 0 0;background:rgba(180,175,168,.3)"></div></div>
+          <!-- May: $58K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:63px;border-radius:3px 3px 0 0;background:rgba(180,175,168,.3)"></div></div>
+          <!-- Jun: $68K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:74px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.35)"></div></div>
+          <!-- Jul: $78K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:85px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.4)"></div></div>
+          <!-- Aug: $90K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:98px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.45)"></div></div>
+          <!-- Sep: $102K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:110px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.5)"></div></div>
+          <!-- Oct: $115K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:125px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.55)"></div></div>
+          <!-- Nov: $130K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:141px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.6)"></div></div>
+          <!-- Dec: $148K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:161px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.65)"></div></div>
+          <!-- Jan '26: $155K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:168px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.7)"></div></div>
+          <!-- Feb: $165K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:179px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.78)"></div></div>
+          <!-- Mar: $180K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:195px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.85)"></div></div>
+          <!-- Apr: $195K --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:8px;color:transparent;margin-bottom:3px">.</div><div style="width:100%;height:212px;border-radius:3px 3px 0 0;background:rgba(192,65,76,.92)"></div></div>
+          <!-- May: $219K --><div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative"><div style="font-size:8px;font-weight:700;color:var(--wine);margin-bottom:3px">$219</div><div style="width:100%;height:238px;border-radius:3px 3px 0 0;background:var(--wine)"></div></div>
+          <!-- 6.4x stat -->
+          <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:20px;margin-left:8px">
+            <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--wine);line-height:1">6.4x</div>
+            <div style="font-size:9px;font-weight:600;color:var(--lt-mut);margin-top:4px">in 16 months</div>
           </div>
         </div>
         <!-- Month labels -->
@@ -705,16 +914,15 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
         </div>
         <!-- Bars - quarterly snapshots with circle on last bar -->
         <div style="height:280px;display:flex;align-items:flex-end;gap:16px;position:relative;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.06)">
-          <!-- Q2 '25 --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;font-weight:600;color:#1a1a1a;margin-bottom:4px">0.8K</div><div style="width:100%;height:38px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.25)"></div></div>
-          <!-- Q3 '25 --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;font-weight:600;color:#1a1a1a;margin-bottom:4px">1.5K</div><div style="width:100%;height:71px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.4)"></div></div>
-          <!-- Q4 '25 --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;font-weight:600;color:#1a1a1a;margin-bottom:4px">2.4K</div><div style="width:100%;height:114px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.55)"></div></div>
-          <!-- Q1 '26 --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;font-weight:600;color:#1a1a1a;margin-bottom:4px">3.8K</div><div style="width:100%;height:181px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.75)"></div></div>
-          <!-- Q2 '26 + overlapping circle --><div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative"><div style="font-size:10px;font-weight:700;color:var(--wine);margin-bottom:4px">5.0K+</div><div style="width:100%;height:238px;border-radius:4px 4px 0 0;background:var(--wine)"></div>
-            <!-- 70% circle overlapping last bar -->
-            <div style="position:absolute;bottom:110px;right:-36px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 6px 28px rgba(0,0,0,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5">
-              <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px;color:var(--wine);line-height:1;margin-bottom:4px">70%</div>
-              <div style="font-size:7px;font-weight:600;color:var(--lt-mut);text-align:center;line-height:1.2">of revenue from<br>subscribers</div>
-            </div>
+          <!-- Q2 '25 --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;font-weight:600;color:var(--lt-mut2);margin-bottom:4px">0.8K</div><div style="width:100%;height:38px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.3)"></div></div>
+          <!-- Q3 '25 --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;font-weight:600;color:var(--lt-mut2);margin-bottom:4px">1.5K</div><div style="width:100%;height:71px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.35)"></div></div>
+          <!-- Q4 '25 --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;font-weight:600;color:var(--lt-mut2);margin-bottom:4px">2.4K</div><div style="width:100%;height:114px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.55)"></div></div>
+          <!-- Q1 '26 --><div style="flex:1;display:flex;flex-direction:column;align-items:center"><div style="font-size:10px;font-weight:600;color:var(--lt-ink);margin-bottom:4px">3.8K</div><div style="width:100%;height:181px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.75)"></div></div>
+          <!-- Q2 '26 --><div style="flex:1;display:flex;flex-direction:column;align-items:center;position:relative"><div style="font-size:10px;font-weight:700;color:var(--wine);margin-bottom:4px">5.0K+</div><div style="width:100%;height:238px;border-radius:4px 4px 0 0;background:var(--wine)"></div></div>
+          <!-- 70% stat -->
+          <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:20px;margin-left:8px">
+            <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--wine);line-height:1">70%</div>
+            <div style="font-size:9px;font-weight:600;color:var(--lt-mut);text-align:center;margin-top:4px;line-height:1.3">of revenue from<br>subscribers</div>
           </div>
         </div>
         <!-- Quarter labels -->
@@ -732,151 +940,109 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 </div>
 
 <!-- ============================================ -->
-<!-- S8 · UNIT ECONOMICS -->
+<!-- SLIDE 9 · UNIT ECONOMICS — CAC ONLY (modified from v6) -->
 <!-- ============================================ -->
-<div class="slide light" id="s12" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
+<div class="slide light" id="s9-cac" style="background:#FAFAFA">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;position:relative;z-index:2;padding:32px 64px 0">
     <!-- Headline -->
     <div style="margin-bottom:12px">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:14px">UNIT ECONOMICS</div>
       <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px;max-width:1000px">
         ...and <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">unit economics</span> that improve every cohort
       </div>
     </div>
-    <!-- Charts wrapper — vertically centered in remaining space -->
+    <!-- Charts wrapper — two panels side by side -->
+    <div style="flex:1;display:flex;gap:48px;align-items:stretch">
+    <!-- LEFT: CAC chart -->
     <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
-    <!-- Two panels -->
-    <div style="display:flex;gap:48px;padding-bottom:8px">
-      <!-- LEFT: CAC by Quarter (bar chart) -->
-      <div style="flex:1;display:flex;flex-direction:column">
-        <div style="margin-bottom:8px">
-          <div style="font-size:16px;font-weight:600;color:var(--lt-ink);margin-bottom:1px">Customer Acquisition Cost</div>
-          <div style="font-size:11px;color:var(--lt-mut)">Quarterly average · blended CAC</div>
-        </div>
-        <!-- CAC bars: Q2'25=$118, Q3'25=$167, Q4'25=$192 (peak), Q1'26=$127, Q2'26=$130 -->
-        <!-- Max=$192, scale: height = (val/192)*290 -->
-        <div style="flex:1;display:flex;align-items:flex-end;gap:6px;padding-bottom:24px;position:relative">
-          <!-- Q2'25 $118 -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="font-size:11px;font-weight:700;color:var(--lt-ink)">$118</div>
-            <div style="width:52px;height:178px;border-radius:6px 6px 0 0;background:rgba(192,65,76,.3)"></div>
-          </div>
-          <!-- Q3'25 $167 -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="font-size:11px;font-weight:700;color:var(--lt-ink)">$167</div>
-            <div style="width:52px;height:252px;border-radius:6px 6px 0 0;background:rgba(192,65,76,.5)"></div>
-          </div>
-          <!-- Q4'25 $192 (peak) -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="font-size:11px;font-weight:700;color:var(--wine)">$192</div>
-            <div style="width:52px;height:290px;border-radius:6px 6px 0 0;background:rgba(192,65,76,.7)"></div>
-          </div>
-          <!-- Q1'26 $127 -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="font-size:11px;font-weight:700;color:var(--lt-ink)">$127</div>
-            <div style="width:52px;height:192px;border-radius:6px 6px 0 0;background:rgba(192,65,76,.88)"></div>
-          </div>
-          <!-- Q2'26 $130 -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="font-size:11px;font-weight:700;color:var(--wine)">$130</div>
-            <div style="width:52px;height:196px;border-radius:6px 6px 0 0;background:rgba(192,65,76,1)"></div>
-          </div>
-        </div>
-        <!-- Quarter labels -->
-        <div style="display:flex;border-top:1px solid rgba(0,0,0,.06);padding-top:6px">
-          <div style="flex:1;text-align:center;font-size:9px;color:var(--lt-mut)">Q2 '25</div>
-          <div style="flex:1;text-align:center;font-size:9px;color:var(--lt-mut)">Q3 '25</div>
-          <div style="flex:1;text-align:center;font-size:9px;color:var(--lt-mut)">Q4 '25</div>
-          <div style="flex:1;text-align:center;font-size:9px;font-weight:600;color:var(--lt-ink)">Q1 '26</div>
-          <div style="flex:1;text-align:center;font-size:9px;font-weight:600;color:var(--lt-ink)">Q2 '26</div>
-        </div>
-        <!-- Summary sentence -->
-        <div style="margin-top:10px;font-size:12px;font-weight:600;font-style:italic;color:var(--lt-ink);text-align:center">CAC compressed 33% from peak as channel<br>mix and creative efficiency improved</div>
+      <div style="margin-bottom:8px">
+        <div style="font-size:16px;font-weight:600;color:var(--lt-ink);margin-bottom:1px">Customer Acquisition Cost</div>
+        <div style="font-size:11px;color:var(--lt-mut)">Quarterly average · blended CAC</div>
       </div>
-      <!-- RIGHT: Cumulative Revenue per Subscriber by Cohort -->
-      <div style="flex:1;display:flex;flex-direction:column">
-        <div style="margin-bottom:8px">
-          <div style="font-size:16px;font-weight:600;color:var(--lt-ink);margin-bottom:1px">Cumulative Revenue per Subscriber</div>
-          <div style="display:flex;align-items:center;gap:16px;margin-top:2px">
-            <div style="display:flex;align-items:center;gap:4px"><div style="width:16px;height:3px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);border-radius:2px"></div><div style="font-size:9px;font-weight:600;color:var(--lt-ink)">Post-Capsules (Nov '25+)</div></div>
-            <div style="display:flex;align-items:center;gap:4px"><div style="width:16px;height:3px;background:#D4B8A8;border-radius:2px"></div><div style="font-size:9px;color:var(--lt-mut)">Pre-Capsules (Mar – Oct '25)</div></div>
-          </div>
+      <div style="display:flex;align-items:flex-end;gap:16px;padding-bottom:16px;position:relative">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div style="font-size:12px;font-weight:700;color:var(--lt-mut2)">$118</div>
+          <div style="width:100%;height:130px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.3)"></div>
         </div>
-        <!-- Milestone headers -->
-        <div style="position:relative;display:flex;padding-left:30px;margin-bottom:4px;height:14px">
-          <div style="position:absolute;left:30px;font-size:9px;font-weight:600;color:var(--lt-mut)">Month 1</div>
-          <div style="position:absolute;left:calc(30px + 33.3% - 20px);font-size:9px;font-weight:600;color:var(--lt-mut)">Month 6</div>
-          <div style="position:absolute;left:calc(30px + 66.6% - 20px);font-size:9px;font-weight:600;color:var(--lt-mut)">Month 12</div>
-          <div style="position:absolute;right:0;font-size:9px;font-weight:600;color:var(--lt-mut)">Month 18</div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div style="font-size:12px;font-weight:700;color:var(--lt-mut2)">$167</div>
+          <div style="width:100%;height:184px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.4)"></div>
         </div>
-        <!-- Chart area — taller -->
-        <div style="height:240px;position:relative;margin-top:4px">
-          <!-- Y-axis labels -->
-          <div style="position:absolute;top:-4px;left:0;font-size:8px;color:var(--lt-mut)">$400</div>
-          <div style="position:absolute;top:23%;left:0;font-size:8px;color:var(--lt-mut)">$300</div>
-          <div style="position:absolute;top:48%;left:0;font-size:8px;color:var(--lt-mut)">$200</div>
-          <div style="position:absolute;top:73%;left:0;font-size:8px;color:var(--lt-mut)">$100</div>
-          <div style="position:absolute;bottom:-4px;left:0;font-size:8px;color:var(--lt-mut)">$0</div>
-          <!-- Horizontal grid lines -->
-          <div style="position:absolute;top:25%;left:30px;right:0;border-top:1px solid rgba(0,0,0,.04)"></div>
-          <div style="position:absolute;top:50%;left:30px;right:0;border-top:1px solid rgba(0,0,0,.04)"></div>
-          <div style="position:absolute;top:75%;left:30px;right:0;border-top:1px solid rgba(0,0,0,.04)"></div>
-          <!-- Vertical milestone lines -->
-          <div style="position:absolute;top:0;bottom:0;left:calc(30px + 5.5%);border-left:1px solid rgba(0,0,0,.06)"></div>
-          <div style="position:absolute;top:0;bottom:0;left:calc(30px + 33.3%);border-left:1px solid rgba(0,0,0,.06)"></div>
-          <div style="position:absolute;top:0;bottom:0;left:calc(30px + 66.6%);border-left:1px solid rgba(0,0,0,.06)"></div>
-          <div style="position:absolute;top:0;bottom:0;right:0;border-left:1px solid rgba(0,0,0,.06)"></div>
-          <!-- SVG curves -->
-          <svg style="position:absolute;left:30px;top:0;width:calc(100% - 30px);height:100%" viewBox="0 0 480 300" preserveAspectRatio="none">
-            <!-- Pre-Capsules (Mar-Oct'25) -->
-            <polyline points="
-              0,224 27,201 53,182 80,162 107,149 133,139 160,127 187,119 213,113 240,104 267,96 293,88 320,81 347,70 373,62 400,39
-            " fill="none" stroke="#D4B8A8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="160" cy="127" r="4" fill="#D4B8A8"/>
-            <circle cx="400" cy="39" r="5" fill="#D4B8A8" stroke="#fff" stroke-width="2"/>
-            <!-- Post-Capsules (Nov'25+) -->
-            <polyline points="
-              0,211 27,190 53,174 80,142 107,128 133,121 160,107
-            " fill="none" stroke="#C0414C" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="160" cy="107" r="6" fill="#C0414C" stroke="#fff" stroke-width="2"/>
-          </svg>
-          <!-- Key annotations only: M6 red, M6 beige, M18 beige -->
-          <div style="position:absolute;top:8%;left:calc(30px + 33.3% + 6px);font-size:11px;font-weight:700;color:#C0414C;background:rgba(240,221,208,.7);padding:1px 5px;border-radius:3px">$258</div>
-          <div style="position:absolute;top:42%;left:calc(30px + 33.3% + 6px);font-size:10px;color:#B8A090;background:rgba(240,221,208,.8);padding:1px 5px;border-radius:3px">$231</div>
-          <!-- +12% gap annotation -->
-          <div style="position:absolute;top:22%;left:calc(30px + 33.3% + 56px);font-size:9px;font-weight:700;color:var(--wine);background:rgba(192,65,76,.08);padding:2px 8px;border-radius:10px;white-space:nowrap">+12% at same age</div>
-          <!-- M18 beige -->
-          <div style="position:absolute;top:5%;right:10px;font-size:10px;font-weight:600;color:#D4B8A8">$348</div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div style="font-size:12px;font-weight:700;color:var(--lt-mut2)">$192</div>
+          <div style="width:100%;height:212px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.5)"></div>
         </div>
-        <!-- Retention row below cohort chart -->
-        <div style="display:flex;margin-top:14px;border-top:1px solid rgba(0,0,0,.08);padding-top:10px">
-          <div style="flex:1;padding-right:12px;border-right:1px solid rgba(0,0,0,.06)">
-            <div style="font-size:8px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:3px">M1 Retention</div>
-            <div style="display:flex;align-items:baseline;gap:4px">
-              <span style="font-size:10px;color:#D4B8A8">83%</span>
-              <span style="font-size:9px;color:var(--lt-mut)">→</span>
-              <span style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#C0414C;letter-spacing:-0.5px">87%</span>
-              <span style="font-size:8px;font-weight:700;color:var(--wine)">+400 bps</span>
-            </div>
-          </div>
-          <div style="flex:1;padding:0 12px;border-right:1px solid rgba(0,0,0,.06)">
-            <div style="font-size:8px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:3px">M3 Retention</div>
-            <div style="display:flex;align-items:baseline;gap:4px">
-              <span style="font-size:10px;color:#D4B8A8">50%</span>
-              <span style="font-size:9px;color:var(--lt-mut)">→</span>
-              <span style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#C0414C;letter-spacing:-0.5px">61%</span>
-              <span style="font-size:8px;font-weight:700;color:var(--wine)">+1,100 bps</span>
-            </div>
-          </div>
-          <div style="flex:1;padding-left:12px">
-            <div style="font-size:8px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:3px">M6 Retention</div>
-            <div style="display:flex;align-items:baseline;gap:4px">
-              <span style="font-size:10px;color:#D4B8A8">29%</span>
-              <span style="font-size:9px;color:var(--lt-mut)">→</span>
-              <span style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#C0414C;letter-spacing:-0.5px">36%</span>
-              <span style="font-size:8px;font-weight:700;color:var(--wine)">+700 bps</span>
-            </div>
-          </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div style="font-size:12px;font-weight:700;color:var(--lt-ink)">$127</div>
+          <div style="width:100%;height:140px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.8)"></div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
+          <div style="font-size:12px;font-weight:700;color:var(--wine)">$130</div>
+          <div style="width:100%;height:143px;border-radius:4px 4px 0 0;background:var(--wine)"></div>
+        </div>
+      </div>
+      <div style="display:flex;border-top:1px solid rgba(0,0,0,.06);padding-top:6px">
+        <div style="flex:1;text-align:center;font-size:10px;color:var(--lt-mut)">Q2 '25</div>
+        <div style="flex:1;text-align:center;font-size:10px;color:var(--lt-mut)">Q3 '25</div>
+        <div style="flex:1;text-align:center;font-size:10px;color:var(--lt-mut)">Q4 '25</div>
+        <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-ink)">Q1 '26</div>
+        <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-ink)">Q2 '26</div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;font-weight:600;font-style:italic;color:var(--lt-ink);text-align:center">CAC compressed 33% from peak as channel mix and creative efficiency improved</div>
+    </div>
+    <!-- RIGHT: LTV / Cumulative Revenue per Subscriber -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div style="margin-bottom:8px">
+        <div style="font-size:16px;font-weight:600;color:var(--lt-ink);margin-bottom:1px">Cumulative Revenue per Subscriber</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-top:4px">
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:20px;height:2px;background:var(--wine);border-radius:1px"></div><div style="font-size:10px;color:var(--lt-mut)">Post-Capsules (Nov '25+)</div></div>
+          <div style="display:flex;align-items:center;gap:6px"><div style="width:20px;height:2px;background:rgba(180,175,168,.6);border-radius:1px"></div><div style="font-size:10px;color:var(--lt-mut)">Pre-Capsules (Mar – Oct '25)</div></div>
+        </div>
+      </div>
+      <!-- SVG Chart -->
+      <div style="position:relative;width:100%;height:240px;margin-top:8px">
+        <svg viewBox="0 0 400 200" style="width:100%;height:100%" preserveAspectRatio="none">
+          <!-- Grid lines -->
+          <line x1="0" y1="0" x2="400" y2="0" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
+          <line x1="0" y1="50" x2="400" y2="50" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
+          <line x1="0" y1="100" x2="400" y2="100" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
+          <line x1="0" y1="150" x2="400" y2="150" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
+          <line x1="0" y1="200" x2="400" y2="200" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
+          <!-- Pre-capsules line (taupe) -->
+          <polyline points="0,175 67,140 133,115 200,100 267,85 333,72 400,56" fill="none" stroke="rgba(180,175,168,.6)" stroke-width="2"/>
+          <!-- Post-capsules line (wine) -->
+          <polyline points="0,165 67,120 133,90 200,68 267,55 333,42" fill="none" stroke="var(--wine)" stroke-width="2.5"/>
+          <!-- Comparison dot on post-capsules at month 6 -->
+          <circle cx="133" cy="90" r="5" fill="var(--wine)"/>
+        </svg>
+        <!-- Y-axis labels -->
+        <div style="position:absolute;left:-8px;top:-4px;font-size:8px;color:var(--lt-mut)">$400</div>
+        <div style="position:absolute;left:-8px;top:21%;font-size:8px;color:var(--lt-mut)">$300</div>
+        <div style="position:absolute;left:-8px;top:46%;font-size:8px;color:var(--lt-mut)">$200</div>
+        <div style="position:absolute;left:-8px;top:71%;font-size:8px;color:var(--lt-mut)">$100</div>
+        <div style="position:absolute;left:-4px;bottom:-2px;font-size:8px;color:var(--lt-mut)">$0</div>
+        <!-- X-axis labels -->
+        <div style="position:absolute;bottom:-16px;left:0;font-size:8px;color:var(--lt-mut)">Month 1</div>
+        <div style="position:absolute;bottom:-16px;left:33%;font-size:8px;color:var(--lt-mut)">Month 6</div>
+        <div style="position:absolute;bottom:-16px;left:66%;font-size:8px;color:var(--lt-mut)">Month 12</div>
+        <div style="position:absolute;bottom:-16px;right:0;font-size:8px;color:var(--lt-mut)">Month 18</div>
+        <!-- Callouts -->
+        <div style="position:absolute;top:24%;left:36%;font-size:11px;font-weight:700;color:var(--wine)">$258</div>
+        <div style="position:absolute;top:50%;left:36%;font-size:9px;color:var(--lt-mut)">$231</div>
+        <div style="position:absolute;top:18%;left:48%;font-size:9px;font-weight:600;color:var(--wine)">+12% at same age</div>
+      </div>
+      <!-- Retention stats row -->
+      <div style="display:flex;gap:12px;margin-top:28px;border-top:1px solid rgba(0,0,0,.06);padding-top:12px">
+        <div style="flex:1">
+          <div style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lt-mut)">M1 Retention</div>
+          <div style="font-size:13px;color:var(--lt-ink);margin-top:2px">83% → <span style="font-weight:700;font-size:18px;color:var(--wine)">87%</span> <span style="font-size:10px;color:var(--lt-mut)">+400 bps</span></div>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lt-mut)">M3 Retention</div>
+          <div style="font-size:13px;color:var(--lt-ink);margin-top:2px">50% → <span style="font-weight:700;font-size:18px;color:var(--wine)">61%</span> <span style="font-size:10px;color:var(--lt-mut)">+1,100 bps</span></div>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lt-mut)">M6 Retention</div>
+          <div style="font-size:13px;color:var(--lt-ink);margin-top:2px">29% → <span style="font-weight:700;font-size:18px;color:var(--wine)">36%</span> <span style="font-size:10px;color:var(--lt-mut)">+700 bps</span></div>
         </div>
       </div>
     </div>
@@ -886,488 +1052,128 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 </div>
 
 <!-- ============================================ -->
-<!-- S9 · CHANNEL MIX -->
+<!-- SLIDE 10 · CHANNEL MIX + 5-YEAR PROJECTION (modified) -->
 <!-- ============================================ -->
-<div class="slide light" id="s13" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
+<div class="slide light" id="s10-channels" style="background:#FAFAFA">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;position:relative;z-index:2">
     <!-- Headline -->
     <div style="padding:32px 64px 0">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:14px">Channels</div>
-      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px;margin-bottom:12px">
-        <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">DTC-first</span> engine and emerging channels scaling
+      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px;margin-bottom:4px">
+        <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">Road to $100M+</span>: channel diversification at scale
+      </div>
+      <!-- Legend -->
+      <div style="display:flex;gap:16px;margin-top:10px">
+        <div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:2px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%)"></div><div style="font-size:9px;color:#1a1a1a;font-weight:600">DTC</div></div>
+        <div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:2px;background:#E07A3D"></div><div style="font-size:9px;color:var(--lt-mut)">Amazon</div></div>
+        <div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:2px;background:#F7C9A0"></div><div style="font-size:9px;color:var(--lt-mut)">TikTok</div></div>
+        <div style="display:flex;align-items:center;gap:5px"><div style="width:8px;height:8px;border-radius:2px;background:#F2A37B"></div><div style="font-size:9px;color:var(--lt-mut)">Wholesale / B2B</div></div>
       </div>
     </div>
-    <!-- Two-panel: stacked bars left, channel descriptions right -->
-    <div style="flex:1;display:flex;gap:36px;padding:0 64px 40px;align-items:center">
-      <!-- LEFT: Stacked bar chart -->
-      <div style="flex:1;display:flex;flex-direction:column">
-        <!-- Legend -->
-        <div style="display:flex;gap:14px;margin-bottom:12px">
-          <div style="display:flex;align-items:center;gap:4px"><div style="width:12px;height:12px;border-radius:2px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%)"></div><div style="font-size:9px;color:#1a1a1a;font-weight:600">DTC</div></div>
-          <div style="display:flex;align-items:center;gap:4px"><div style="width:12px;height:12px;border-radius:2px;background:#E07A3D"></div><div style="font-size:9px;color:var(--lt-mut)">Amazon</div></div>
-          <div style="display:flex;align-items:center;gap:4px"><div style="width:12px;height:12px;border-radius:2px;background:#F2A37B"></div><div style="font-size:9px;color:var(--lt-mut)">Retail</div></div>
-          <div style="display:flex;align-items:center;gap:4px"><div style="width:12px;height:12px;border-radius:2px;background:#F7C9A0"></div><div style="font-size:9px;color:var(--lt-mut)">TikTok</div></div>
-        </div>
-        <!-- Stacked bars: each bar = total height proportional to revenue, segments colored by channel -->
-        <!-- Max = $496K May'26. Scale: 400px / 496 ≈ 0.806 px per $K -->
-        <div style="flex:1;display:flex;align-items:flex-end;gap:10px;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.06)">
-          <!-- Jun'25: Total=294K, DTC=231K, Amazon=62K, B2B=1K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$294K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:1px;background:#F2A37B"></div>
-              <div style="height:28px;background:#E07A3D"></div>
-              <div style="height:104px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$231K</span></div>
-            </div>
-          </div>
-          <!-- Jul'25: Total=273K, DTC=243K, Amazon=28K, B2B=1K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$273K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:1px;background:#F2A37B"></div>
-              <div style="height:13px;background:#E07A3D"></div>
-              <div style="height:109px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$243K</span></div>
-            </div>
-          </div>
-          <!-- Aug'25: Total=285K, DTC=265K, Amazon=18K, B2B=2K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$285K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:1px;background:#F2A37B"></div>
-              <div style="height:8px;background:#E07A3D"></div>
-              <div style="height:119px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$265K</span></div>
-            </div>
-          </div>
-          <!-- Sep'25: Total=274K, DTC=232K, Amazon=41K, B2B=1K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$274K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:1px;background:#F2A37B"></div>
-              <div style="height:18px;background:#E07A3D"></div>
-              <div style="height:104px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$232K</span></div>
-            </div>
-          </div>
-          <!-- Oct'25: Total=257K, DTC=214K, Amazon=40K, B2B=2K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$257K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:1px;background:#F2A37B"></div>
-              <div style="height:18px;background:#E07A3D"></div>
-              <div style="height:96px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$214K</span></div>
-            </div>
-          </div>
-          <!-- Nov'25: Total=299K, DTC=254K, Amazon=42K, B2B=2K, TikTok=1K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$299K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:1px;background:#F7C9A0"></div>
-              <div style="height:1px;background:#F2A37B"></div>
-              <div style="height:19px;background:#E07A3D"></div>
-              <div style="height:114px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$254K</span></div>
-            </div>
-          </div>
-          <!-- Dec'25: Total=321K, DTC=260K, Amazon=42K, B2B=2K, TikTok=17K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$321K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:8px;background:#F7C9A0"></div>
-              <div style="height:1px;background:#F2A37B"></div>
-              <div style="height:19px;background:#E07A3D"></div>
-              <div style="height:117px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$260K</span></div>
-            </div>
-          </div>
-          <!-- Jan'26: Total=363K, DTC=267K, Amazon=70K, B2B=5K, TikTok=23K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$363K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:10px;background:#F7C9A0"></div>
-              <div style="height:2px;background:#F2A37B"></div>
-              <div style="height:31px;background:#E07A3D"></div>
-              <div style="height:120px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$267K</span></div>
-            </div>
-          </div>
-          <!-- Feb'26: Total=397K, DTC=313K, Amazon=67K, B2B=2K, TikTok=15K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$397K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:7px;background:#F7C9A0"></div>
-              <div style="height:1px;background:#F2A37B"></div>
-              <div style="height:30px;background:#E07A3D"></div>
-              <div style="height:141px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$313K</span></div>
-            </div>
-          </div>
-          <!-- Mar'26: Total=460K, DTC=360K, Amazon=76K, B2B=8K, TikTok=15K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$460K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:7px;background:#F7C9A0"></div>
-              <div style="height:4px;background:#F2A37B"></div>
-              <div style="height:34px;background:#E07A3D"></div>
-              <div style="height:162px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$360K</span></div>
-            </div>
-          </div>
-          <!-- Apr'26: Total=416K, DTC=314K, Amazon=69K, B2B=23K, TikTok=10K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;color:var(--lt-mut);margin-bottom:3px">$416K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:4px;background:#F7C9A0"></div>
-              <div style="height:10px;background:#F2A37B"></div>
-              <div style="height:31px;background:#E07A3D"></div>
-              <div style="height:141px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.85)">$314K</span></div>
-            </div>
-          </div>
-          <!-- May'26: Total=563K, DTC=447K, Amazon=78K, B2B=33K, TikTok=5K -->
-          <div style="flex:1;display:flex;flex-direction:column;align-items:center">
-            <div style="font-size:8px;font-weight:700;color:var(--wine);margin-bottom:3px">$563K</div>
-            <div style="width:100%;border-radius:3px 3px 0 0;overflow:hidden;display:flex;flex-direction:column">
-              <div style="height:2px;background:#F7C9A0"></div>
-              <div style="height:15px;background:#F2A37B"></div>
-              <div style="height:35px;background:#E07A3D"></div>
-              <div style="height:201px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:700;color:rgba(255,255,255,.9)">$447K</span></div>
-            </div>
-          </div>
-        </div>
-        <!-- Month labels -->
-        <div style="display:flex;gap:10px;padding-top:4px">
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Jun '25</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Jul</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Aug</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Sep</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Oct</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Nov</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Dec</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Jan '26</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Feb</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Mar</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">Apr</div>
-          <div style="flex:1;text-align:center;font-size:7px;color:var(--lt-mut)">May</div>
+    <!-- Floating callouts — middle left -->
+    <div style="position:absolute;left:64px;top:48%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:14px;max-width:240px">
+      <div style="background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:24px 24px;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+        <div style="font-size:22px;font-weight:700;color:var(--lt-ink);line-height:1.2">DTC is the engine</div>
+        <div style="font-size:13px;color:var(--lt-mut);line-height:1.5;margin-top:10px">Proven and scaling to 58% of revenue by FY31</div>
+      </div>
+      <div style="background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:24px 24px;box-shadow:0 2px 12px rgba(0,0,0,.04)">
+        <div style="font-size:22px;font-weight:700;color:var(--lt-ink);line-height:1.2">Retail is the accelerant</div>
+        <div style="font-size:13px;color:var(--lt-mut);line-height:1.5;margin-top:10px">Entering national chains between Q4 '26 and Q1 '27</div>
+      </div>
+    </div>
+    <!-- Stacked bar chart — FY25 actual through FY31E -->
+    <div style="flex:1;display:flex;align-items:flex-end;justify-content:center;gap:20px;padding:12px 40px 20px;border-bottom:1px solid rgba(0,0,0,.06);margin:30px 64px 0;max-height:480px">
+      <!-- FY25: $3.2M — 3.2/115*420 ≈ 12px -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+        <div style="font-size:11px;font-weight:700;color:var(--lt-mut2);margin-bottom:4px">$3.2M</div>
+        <div style="width:100%;border-radius:4px 4px 0 0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:2px;background:#E07A3D"></div>
+          <div style="height:10px;background:rgba(180,175,168,.4)"></div>
         </div>
       </div>
-      <!-- RIGHT: Channel descriptions with % -->
-      <div style="width:320px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:0">
-        <!-- DTC -->
-        <div style="padding:16px 0;border-bottom:1px solid rgba(0,0,0,.06)">
-          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:8px">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:500;color:var(--wine);line-height:1">79%</div>
-            <div style="font-size:14px;font-weight:700;color:#1a1a1a">DTC Revenue</div>
-          </div>
-          <div style="font-size:11px;color:var(--lt-mut);line-height:1.4">Subscription engine. 90%+ M1 retention. $447K in May '26.</div>
-        </div>
-        <!-- Amazon -->
-        <div style="padding:16px 0;border-bottom:1px solid rgba(0,0,0,.06)">
-          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:500;color:#D4956E;line-height:1">14%</div>
-            <div style="font-size:14px;font-weight:700;color:#1a1a1a">Amazon</div>
-          </div>
-          <div style="font-size:11px;color:var(--lt-mut);line-height:1.4">Intent capture. $78K in May '26. Branded search grows as DTC awareness scales.</div>
-        </div>
-        <!-- Retail -->
-        <div style="padding:16px 0;border-bottom:1px solid rgba(0,0,0,.06)">
-          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:500;color:#C09080;line-height:1">6%</div>
-            <div style="font-size:14px;font-weight:700;color:#1a1a1a">Retail</div>
-          </div>
-          <div style="font-size:11px;color:var(--lt-mut);line-height:1.4">Fastest-growing. $33K/mo in May. Premium clinics, med spas.</div>
-        </div>
-        <!-- TikTok -->
-        <div style="padding:16px 0">
-          <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:500;color:#B8B4AE;line-height:1">~1%</div>
-            <div style="font-size:14px;font-weight:700;color:#1a1a1a">TikTok Shop</div>
-          </div>
-          <div style="font-size:11px;color:var(--lt-mut);line-height:1.4">Discovery channel. Low AOV but drives brand awareness.</div>
+      <!-- FY26E: $7M — 7/115*420 = 25px -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+        <div style="font-size:11px;font-weight:700;color:var(--lt-ink);margin-bottom:4px">$7M</div>
+        <div style="width:100%;border-radius:4px 4px 0 0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:3px;background:#F7C9A0"></div>
+          <div style="height:5px;background:#E07A3D"></div>
+          <div style="height:17px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%)"></div>
         </div>
       </div>
+      <!-- FY27E: $16M — 58px -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+        <div style="font-size:11px;font-weight:700;color:var(--lt-ink);margin-bottom:4px">$16M</div>
+        <div style="width:100%;border-radius:4px 4px 0 0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:8px;background:#F7C9A0;display:flex;align-items:center;justify-content:center"><span style="font-size:7px;font-weight:600;color:rgba(0,0,0,.35)">15%</span></div>
+          <div style="height:10px;background:#E07A3D;display:flex;align-items:center;justify-content:center"><span style="font-size:7px;font-weight:600;color:rgba(255,255,255,.9)">18%</span></div>
+          <div style="height:40px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.9)">67%</span></div>
+        </div>
+      </div>
+      <!-- FY28E: $33M — 120px -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+        <div style="font-size:11px;font-weight:700;color:var(--lt-ink);margin-bottom:4px">$33M</div>
+        <div style="width:100%;border-radius:4px 4px 0 0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:16px;background:#F2A37B;display:flex;align-items:center;justify-content:center"><span style="font-size:7px;font-weight:600;color:rgba(255,255,255,.9)">13%</span></div>
+          <div style="height:17px;background:#F7C9A0;display:flex;align-items:center;justify-content:center"><span style="font-size:7px;font-weight:600;color:rgba(0,0,0,.4)">14%</span></div>
+          <div style="height:17px;background:#E07A3D;display:flex;align-items:center;justify-content:center"><span style="font-size:7px;font-weight:600;color:rgba(255,255,255,.9)">14%</span></div>
+          <div style="height:70px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.9)">59%</span></div>
+        </div>
+      </div>
+      <!-- FY29E: $57M — 208px -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+        <div style="font-size:11px;font-weight:700;color:var(--lt-ink);margin-bottom:4px">$57M</div>
+        <div style="width:100%;border-radius:4px 4px 0 0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:35px;background:#F2A37B;display:flex;align-items:center;justify-content:center"><span style="font-size:8px;font-weight:600;color:rgba(255,255,255,.9)">17%</span></div>
+          <div style="height:29px;background:#F7C9A0;display:flex;align-items:center;justify-content:center"><span style="font-size:8px;font-weight:600;color:rgba(0,0,0,.4)">14%</span></div>
+          <div style="height:25px;background:#E07A3D;display:flex;align-items:center;justify-content:center"><span style="font-size:8px;font-weight:600;color:rgba(255,255,255,.9)">12%</span></div>
+          <div style="height:119px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.9)">57%</span></div>
+        </div>
+      </div>
+      <!-- FY30E: $85M — 310px -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+        <div style="font-size:11px;font-weight:700;color:var(--lt-ink);margin-bottom:4px">$85M</div>
+        <div style="width:100%;border-radius:4px 4px 0 0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:55px;background:#F2A37B;display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.9)">18%</span></div>
+          <div style="height:41px;background:#F7C9A0;display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(0,0,0,.4)">13%</span></div>
+          <div style="height:36px;background:#E07A3D;display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.9)">11%</span></div>
+          <div style="height:178px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:10px;font-weight:700;color:rgba(255,255,255,.9)">58%</span></div>
+        </div>
+      </div>
+      <!-- FY31E: $115M — 420px -->
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+        <div style="font-size:11px;font-weight:700;color:var(--wine);margin-bottom:4px">$115M</div>
+        <div style="width:100%;border-radius:4px 4px 0 0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:73px;background:#F2A37B;display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.9)">17%</span></div>
+          <div style="height:55px;background:#F7C9A0;display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(0,0,0,.4)">13%</span></div>
+          <div style="height:48px;background:#E07A3D;display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:600;color:rgba(255,255,255,.9)">11%</span></div>
+          <div style="height:244px;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%);display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:rgba(255,255,255,.9)">58%</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Labels row -->
+    <div style="display:flex;gap:20px;padding:6px 40px 0;margin:0 64px">
+      <div style="flex:1;text-align:center;font-size:10px;color:var(--lt-mut)">FY25</div>
+      <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-ink)">FY26E</div>
+      <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-mut)">FY27E</div>
+      <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-mut)">FY28E</div>
+      <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-mut)">FY29E</div>
+      <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-mut)">FY30E</div>
+      <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--wine)">FY31E</div>
     </div>
     <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>10</span></div>
   </div>
 </div>
 
 <!-- ============================================ -->
-<!-- S10 · THREE PILLARS (Venn diagram) -->
+<!-- SLIDE 11 · RETAIL (moved after channels) -->
 <!-- ============================================ -->
-<div class="slide light" id="s5" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%);overflow:hidden">
-  <div style="width:100%;height:100%;display:flex;align-items:center;position:relative;z-index:2">
-
-    <!-- LEFT: Statement -->
-    <div style="width:40%;padding:0 0 0 100px;flex-shrink:0">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:10px">THE MOAT</div>
-      <div style="width:40px;height:2px;background:var(--wine);opacity:.5;margin-bottom:18px"></div>
-      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:40px;color:var(--lt-ink);line-height:1.15;letter-spacing:-.5px">We built a moat<br>that creates deep<br>and <span style="color:var(--wine)">long-lasting<br>customer<br>relationships</span></div>
-    </div>
-
-    <!-- RIGHT: Venn diagram -->
-    <div style="flex:1;position:relative;height:100%;display:flex;align-items:center;justify-content:center;margin-right:-40px">
-      <div style="position:relative;width:560px;height:560px;margin-top:20px">
-        <!-- Top circle: Community -->
-        <div style="position:absolute;width:340px;height:340px;border-radius:50%;border:3px solid rgba(255,255,255,.85);background:rgba(237,220,205,.55);top:0;left:50%;transform:translateX(-50%)"></div>
-        <div style="position:absolute;width:340px;height:340px;top:0;left:50%;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none;padding-bottom:100px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--lt-ink);line-height:1.3;text-align:center">Strong<br>Community</div>
-        </div>
-
-        <!-- Bottom-left circle: Science -->
-        <div style="position:absolute;width:340px;height:340px;border-radius:50%;border:3px solid rgba(255,255,255,.85);background:rgba(192,130,115,.3);bottom:-10px;left:-10px"></div>
-        <div style="position:absolute;width:340px;height:340px;bottom:-10px;left:-10px;display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none;padding-top:80px;padding-right:80px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--lt-ink);line-height:1.3;text-align:center">Science-Backed</div>
-        </div>
-
-        <!-- Bottom-right circle: Brand -->
-        <div style="position:absolute;width:340px;height:340px;border-radius:50%;border:3px solid rgba(255,255,255,.85);background:rgba(190,195,165,.35);bottom:-10px;right:-10px"></div>
-        <div style="position:absolute;width:340px;height:340px;bottom:-10px;right:-10px;display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none;padding-top:80px;padding-left:80px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--lt-ink);line-height:1.3;text-align:center">Trusted and<br>Desired Brand</div>
-        </div>
-
-        <!-- Center: Happy Aging logo -->
-        <div style="position:absolute;top:52%;left:50%;transform:translate(-50%,-50%);z-index:10;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.95);box-shadow:0 4px 24px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center">
-          <img src="Images%20Deck/ha-wordmark-black.png" alt="Happy Aging" style="width:80px;object-fit:contain">
-        </div>
-      </div>
-    </div>
-
-    <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>11</span></div>
-  </div>
-</div>
-
-
-<!-- ============================================ -->
-<!-- S11 · SCIENCE DEEP-DIVE (Hims-style: hero image left + stats right) -->
-<!-- ============================================ -->
-<div class="slide light" id="s6b" style="background:#C9AD94;overflow:hidden">
-  <div style="width:100%;height:100%;display:flex;position:relative">
-
-    <!-- LEFT ~60%: Capsule image as background, title overlay -->
-    <div style="width:60%;height:100%;position:relative;overflow:hidden">
-      <!-- Blurred background image -->
-      <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:url('Images%20Deck/capsules-science-hero-v2.png') center center / cover no-repeat;filter:blur(2px)"></div>
-      <!-- Sharp image on top -->
-      <img src="Images%20Deck/capsules-science-hero-v2.png" alt="NAD+ Capsules" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center center">
-      <!-- Title overlay at top-left -->
-      <div style="position:absolute;top:32px;left:64px;z-index:3">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:14px">SCIENCE</div>
-        <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px">Backed by <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">proprietary science</span><br>and <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">clinical proof</span></div>
-      </div>
-    </div>
-
-    <!-- RIGHT ~40%: White panel with text items + stats -->
-    <div style="width:40%;height:100%;background:#fff;display:flex;position:relative;z-index:3;box-shadow:-6px 0 24px rgba(0,0,0,.06)">
-
-      <!-- Nav indicator top-right — matches Brand/Community slide positioning -->
-      <div style="position:absolute;top:44px;right:56px;display:flex;gap:8px;align-items:center">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--wine)">Science</div>
-        <div style="width:1px;height:12px;background:var(--lt-border)"></div>
-        <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--lt-mut2)">Brand</div>
-        <div style="width:1px;height:12px;background:var(--lt-border)"></div>
-        <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--lt-mut2)">Community</div>
-      </div>
-
-      <!-- Text items column -->
-      <div style="width:50%;display:flex;flex-direction:column;justify-content:center;padding:80px 24px 48px 40px;gap:0">
-
-        <div style="padding-bottom:20px;border-bottom:1px solid #E8E4DF">
-          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">Medical Leadership</div>
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:17px;color:var(--lt-ink);letter-spacing:-.2px;margin-bottom:6px">Dr. Daniel Yadegar</div>
-          <div style="font-size:13px;color:var(--lt-mut);line-height:1.5">Harvard-trained longevity physician, Co-Founder & Chief Medical Officer</div>
-        </div>
-
-        <div style="padding:20px 0;border-bottom:1px solid #E8E4DF">
-          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">Patent-Pending</div>
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:17px;color:var(--lt-ink);letter-spacing:-.2px;margin-bottom:6px">SuperNAD+ Complex</div>
-          <div style="font-size:13px;color:var(--lt-mut);line-height:1.5">Liposomal NR delivery, 3x bioavailability vs NMN</div>
-        </div>
-
-        <div style="padding:20px 0;border-bottom:1px solid #E8E4DF">
-          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">Clinical Validation</div>
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:17px;color:var(--lt-ink);letter-spacing:-.2px;margin-bottom:6px">CitrusLabs Validated</div>
-          <div style="font-size:13px;color:var(--lt-mut);line-height:1.5">Independent 5-week study, 50 participants, peer-reviewed</div>
-        </div>
-
-        <div style="padding-top:20px">
-          <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:10px">Pipeline</div>
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:17px;color:var(--lt-ink);letter-spacing:-.2px;margin-bottom:6px">Study 2 — Capsules</div>
-          <div style="font-size:13px;color:var(--lt-mut);line-height:1.5">Initiating June 2026, NAD+ bioavailability & energy</div>
-        </div>
-
-      </div>
-
-      <!-- Stats column -->
-      <div style="width:50%;display:flex;flex-direction:column;justify-content:center;padding:80px 48px 48px 24px">
-
-        <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:36px">CitrusLabs Clinical Trial</div>
-
-        <div style="width:100%;height:1px;background:#E0E0E0;margin-bottom:28px"></div>
-        <div style="margin-bottom:40px">
-          <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:64px;color:var(--wine);line-height:.88;letter-spacing:-.02em">50%</div>
-          <div style="font-size:14px;color:var(--lt-ink);line-height:1.4;margin-top:10px;font-weight:400">decreased <strong>biological age</strong> by Month 3</div>
-        </div>
-
-        <div style="width:100%;height:1px;background:#E0E0E0;margin-bottom:28px"></div>
-        <div style="margin-bottom:40px">
-          <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:64px;color:var(--wine);line-height:.88;letter-spacing:-.02em">19/19</div>
-          <div style="font-size:14px;color:var(--lt-ink);line-height:1.4;margin-top:10px;font-weight:400"><strong>aging parameters</strong> improved by Month 3</div>
-        </div>
-
-        <div style="width:100%;height:1px;background:#E0E0E0;margin-bottom:28px"></div>
-        <div>
-          <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:64px;color:var(--wine);line-height:.88;letter-spacing:-.02em">72.7%</div>
-          <div style="font-size:14px;color:var(--lt-ink);line-height:1.4;margin-top:10px;font-weight:400">reported <strong>less fatigue</strong></div>
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>12</span></div>
-</div>
-
-<!-- ============================================ -->
-<!-- S12 · BRAND (Hims-style: big headline + 4-card grid) -->
-<!-- ============================================ -->
-<div class="slide light" id="s7" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
-  <div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;padding:32px 64px 24px;position:relative;z-index:2">
-
-    <!-- Header row -->
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-      <!-- Left: label + headline -->
-      <div style="flex:1;max-width:820px">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:14px">BRAND</div>
-        <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px">Brand equity that <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">compounds</span><br>with every touchpoint</div>
-      </div>
-      <!-- Right: Science | Brand | Community nav — matches Science slide positioning -->
-      <div style="flex-shrink:0;display:flex;align-items:center;gap:8px;padding-top:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase">
-        <div style="font-weight:500;color:var(--lt-mut2)">Science</div>
-        <div style="width:1px;height:12px;background:var(--lt-border)"></div>
-        <div style="font-weight:600;color:var(--wine)">Brand</div>
-        <div style="width:1px;height:12px;background:var(--lt-border)"></div>
-        <div style="font-weight:500;color:var(--lt-mut2)">Community</div>
-      </div>
-    </div>
-
-    <!-- As Seen In logos -->
-    <div style="display:flex;align-items:center;gap:24px;margin-top:8px;margin-bottom:12px;margin-left:auto">
-      <div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lt-mut)">As Seen In</div>
-      <img src="Images%20Deck/forbes-logo.png" alt="Forbes" style="width:100px;object-fit:contain;mix-blend-mode:multiply">
-      <img src="Images%20Deck/vogue-logo.png" alt="Vogue" style="width:100px;object-fit:contain;mix-blend-mode:multiply">
-      <img src="Images%20Deck/marie-claire-logo.png" alt="Marie Claire" style="width:100px;object-fit:contain;mix-blend-mode:multiply">
-      <img src="Images%20Deck/wellworthy-logo.png" alt="Wellworthy" style="width:100px;object-fit:contain;mix-blend-mode:multiply">
-      <img src="Images%20Deck/bazaar-logo.png" alt="Harper's Bazaar" style="width:100px;object-fit:contain;mix-blend-mode:multiply">
-      <img src="Images%20Deck/womens-health-logo.png" alt="Women's Health" style="width:100px;object-fit:contain;mix-blend-mode:multiply">
-    </div>
-
-    <!-- 4-card grid -->
-    <div style="display:flex;gap:16px;height:400px">
-
-      <!-- Card 1: Instagram / Social Proof -->
-      <div style="flex:1;border-radius:10px;overflow:hidden;position:relative;display:flex;flex-direction:column;align-items:center">
-        <!-- Title -->
-        <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;color:var(--lt-ink);letter-spacing:-.2px;margin-top:16px;margin-bottom:8px">Strong Social Media Presence</div>
-        <!-- Phone frame -->
-        <div style="position:relative;width:160px;height:330px;border-radius:28px;overflow:hidden;border:3px solid #444;box-shadow:0 8px 32px rgba(0,0,0,.15)">
-          <img src="Images%20Deck/ha-instagram.png" alt="Happy Aging Instagram" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        </div>
-      </div>
-
-      <!-- Card 2: Earned Media — press collage -->
-      <!-- Brand Partners — 3 photos side by side -->
-      <div style="flex:3;border-radius:10px;overflow:hidden;position:relative;display:flex;gap:3px">
-        <div style="flex:1;position:relative;overflow:hidden">
-          <img src="Images%20Deck/pura-vida-shot.jpg" alt="Pura Vida x Happy Aging" style="width:100%;height:100%;object-fit:cover">
-          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,transparent 40%,transparent 100%)"></div>
-          <div style="position:absolute;top:20px;left:20px;z-index:2">
-            <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;color:#fff;line-height:1.2;letter-spacing:-.3px">Brand<br>Partners</div>
-          </div>
-        </div>
-        <div style="flex:1;position:relative;overflow:hidden">
-          <img src="Images%20Deck/date-vibes-post.png" alt="Happy Aging x Reserve" style="width:100%;height:100%;object-fit:cover">
-        </div>
-        <div style="flex:1;position:relative;overflow:hidden">
-          <img src="Images%20Deck/MMS__MMS.png" alt="HA x Natura Bissé" style="width:100%;height:100%;object-fit:cover">
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>13</span></div>
-</div>
-
-<!-- ============================================ -->
-<!-- S13 · COMMUNITY DEEP-DIVE -->
-<!-- ============================================ -->
-<div class="slide light" id="s8" style="background:linear-gradient(135deg,#FDFCFA 0%,#FAF5F0 40%,#F7EDE4 70%,#F2E4DA 100%)">
-  <div style="width:100%;height:100%;display:flex;flex-direction:column;padding:32px 64px 24px;position:relative;z-index:2">
-
-    <!-- Header row -->
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-      <!-- Left: label + headline -->
-      <div style="flex:1;max-width:820px">
-        <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:14px">COMMUNITY</div>
-        <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px">A <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">community</span> where buying<br>becomes <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">belonging</span></div>
-      </div>
-      <!-- Right: Science | Brand | Community nav -->
-      <div style="flex-shrink:0;display:flex;align-items:center;gap:8px;padding-top:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase">
-        <div style="font-weight:500;color:var(--lt-mut2)">Science</div>
-        <div style="width:1px;height:12px;background:var(--lt-border)"></div>
-        <div style="font-weight:500;color:var(--lt-mut2)">Brand</div>
-        <div style="width:1px;height:12px;background:var(--lt-border)"></div>
-        <div style="font-weight:600;color:var(--wine)">Community</div>
-      </div>
-    </div>
-
-    <!-- 4-card grid -->
-    <div style="display:flex;gap:16px;height:423px;margin-top:24px">
-
-      <!-- Card 1: Owned Events — 3 images in one box -->
-      <div style="flex:2;border-radius:10px;overflow:hidden;position:relative;display:flex;gap:3px">
-        <!-- Pool meditation -->
-        <div style="flex:1;position:relative;overflow:hidden">
-          <img src="Images%20Deck/community-event.jpg" alt="Pool Meditation Event" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-        </div>
-        <!-- Padel shots on mats -->
-        <div style="flex:1;position:relative;overflow:hidden">
-          <img src="Images%20Deck/event-padel-shots.jpg" alt="Padel Event" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-        </div>
-        <!-- Wellness class -->
-        <div style="flex:1;position:relative;overflow:hidden">
-          <img src="Images%20Deck/event-wellness-class.png" alt="Wellness Class" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-        </div>
-        <!-- Overlay title -->
-        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,transparent 40%,transparent 60%,rgba(0,0,0,.35) 100%);z-index:2"></div>
-        <div style="position:absolute;top:0;left:0;z-index:3;padding:24px 22px">
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:22px;color:#fff;line-height:1.2;letter-spacing:-.3px">Owned<br>Events</div>
-        </div>
-      </div>
-
-      <!-- Card 3: The Longevity Club — image top, text bottom -->
-      <div style="flex:1;border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
-        <!-- Top: logo image -->
-        <div style="flex:1;position:relative;min-height:0">
-          <img src="Images%20Deck/longevity-club-logo.png" alt="The Longevity Club" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-        </div>
-        <!-- Bottom: description text -->
-        <div style="padding:20px 22px;background:#fff">
-          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:15px;color:var(--lt-ink);line-height:1.25;margin-bottom:8px">The Longevity Club</div>
-          <div style="font-size:11.5px;color:var(--lt-mut);line-height:1.45">200+ active members. Exclusive offers, member-only events, and a direct feedback loop with our most engaged subscribers.</div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>14</span></div>
-</div>
-
-<!-- ============================================ -->
-<!-- S16 · RETAIL -->
-<!-- ============================================ -->
-<div class="slide light" id="s14">
+<div class="slide light" id="s13-retail">
   <!-- Full-height image on right -->
   <div style="position:absolute;right:0;top:0;bottom:0;width:35%;overflow:hidden">
     <img src="Images%20Deck/popup-grocer-shelf.png" alt="Pop Up Grocer" style="width:100%;height:100%;object-fit:cover">
   </div>
   <div style="width:65%;height:100%;display:flex;flex-direction:column;position:relative;z-index:2;padding:36px 48px 0 64px">
 
-    <!-- Headline,matching other slides -->
+    <!-- Headline -->
     <div style="margin-bottom:16px">
       <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:14px">RETAIL</div>
       <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px;max-width:600px">Every door deepens the brand <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">and unlocks growth</span></div>
@@ -1378,7 +1184,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 
       <!-- LEFT: Timeline with progress line -->
       <div style="flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;padding-left:20px">
-        <!-- Vertical progress line,thin, left-aligned -->
+        <!-- Vertical progress line -->
         <div style="position:absolute;left:6px;top:8px;bottom:8px;width:2px;border-radius:2px;background:linear-gradient(180deg,var(--wine) 0%,rgba(192,65,76,.2) 100%)"></div>
 
         <div style="display:flex;gap:16px;padding:12px 0;position:relative">
@@ -1388,8 +1194,8 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
             <div style="font-size:9px;color:var(--lt-mut)">25+ doors</div>
           </div>
           <div style="flex:1">
-            <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px">Specialty doors validated</div>
-            <div style="font-size:12px;color:var(--lt-mut);line-height:1.4">Clinics, med spas, luxury hotels across US, Europe, LatAm. $1-2K/door/month from top accounts.</div>
+            <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px">Premium doors validated</div>
+            <div style="font-size:12px;color:var(--lt-mut);line-height:1.4">25+ premium doors across US and international markets.</div>
           </div>
         </div>
 
@@ -1400,8 +1206,8 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
             <div style="font-size:9px;color:var(--lt-mut)">50+ doors</div>
           </div>
           <div style="flex:1">
-            <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px">Chain submissions + clinic sprint</div>
-            <div style="font-size:12px;color:var(--lt-mut);line-height:1.4">Sprouts submission ready (display designed). Ulta, Erewhon in pipeline.</div>
+            <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px">National chain submissions underway</div>
+            <div style="font-size:12px;color:var(--lt-mut);line-height:1.4">Sprouts submission complete. Ulta and GNC in active pipeline.</div>
           </div>
         </div>
 
@@ -1413,7 +1219,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
           </div>
           <div style="flex:1">
             <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px">National retail rollout</div>
-            <div style="font-size:12px;color:var(--lt-mut);line-height:1.4">First national chains. Series A capital deployed to slotting + trade spend.</div>
+            <div style="font-size:12px;color:var(--lt-mut);line-height:1.4">First national chains. Capital deployed to slotting and trade spend.</div>
           </div>
         </div>
 
@@ -1424,7 +1230,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
             <div style="font-size:9px;color:var(--lt-mut)">500+ doors</div>
           </div>
           <div style="flex:1">
-            <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px">Scale to $5M+ retail revenue</div>
+            <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px">Scale to $15M+ retail revenue</div>
             <div style="font-size:12px;color:var(--lt-mut);line-height:1.4">Target, Walmart, HEB. Every shelf drives DTC awareness.</div>
           </div>
         </div>
@@ -1438,30 +1244,30 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 
         <div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:8px">
           <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="font-family:'Helvetica Neue','Arial Black',Helvetica,Arial,sans-serif;font-size:15px;font-weight:900;color:#1a1a1a">$0.3M</div>
-            <div style="width:52px;height:30px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%)"></div>
+            <div style="font-family:'Helvetica Neue','Arial Black',Helvetica,Arial,sans-serif;font-size:15px;font-weight:900;color:#1a1a1a">$4.3M</div>
+            <div style="width:52px;height:57px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%)"></div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="font-family:'Helvetica Neue','Arial Black',Helvetica,Arial,sans-serif;font-size:15px;font-weight:900;color:#1a1a1a">$1.5M</div>
-            <div style="width:52px;height:95px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%)"></div>
+            <div style="font-family:'Helvetica Neue','Arial Black',Helvetica,Arial,sans-serif;font-size:15px;font-weight:900;color:#1a1a1a">$9.5M</div>
+            <div style="width:52px;height:127px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%)"></div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
-            <div style="font-family:'Helvetica Neue','Arial Black',Helvetica,Arial,sans-serif;font-size:18px;font-weight:900;color:var(--wine)">$5M</div>
+            <div style="font-family:'Helvetica Neue','Arial Black',Helvetica,Arial,sans-serif;font-size:18px;font-weight:900;color:var(--wine)">$15M</div>
             <div style="width:52px;height:200px;border-radius:5px 5px 0 0;background:linear-gradient(180deg,#D4606A 0%,#C0414C 30%,#8C2535 100%)"></div>
           </div>
         </div>
 
         <div style="display:flex;gap:16px">
-          <div style="width:52px;text-align:center;font-size:9px;font-weight:600;color:var(--lt-mut)">2026</div>
-          <div style="width:52px;text-align:center;font-size:9px;font-weight:600;color:var(--lt-mut)">2027E</div>
-          <div style="width:52px;text-align:center;font-size:9px;font-weight:600;color:var(--lt-mut)">2028E</div>
+          <div style="width:52px;text-align:center;font-size:9px;font-weight:600;color:var(--lt-mut)">FY28E</div>
+          <div style="width:52px;text-align:center;font-size:9px;font-weight:600;color:var(--lt-mut)">FY29E</div>
+          <div style="width:52px;text-align:center;font-size:9px;font-weight:600;color:var(--lt-mut)">FY30E</div>
         </div>
 
       </div>
 
     </div>
 
-    <!-- Bottom: Retailer logos + Partners -->
+    <!-- Bottom: Retailer logos + Partners (smaller/less prominent) -->
     <div style="display:flex;align-items:stretch;gap:0;padding:10px 0 28px;border-top:1px solid rgba(0,0,0,.06);margin-top:52px;margin-bottom:auto">
       <div style="display:flex;flex-direction:column">
         <div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:12px">In Late-Stage Discussions</div>
@@ -1473,24 +1279,99 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
       </div>
       <div style="width:1px;background:rgba(0,0,0,.08);margin:12px 32px 0"></div>
       <div>
-        <div style="font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:12px">Validated Doors</div>
-        <div style="display:flex;align-items:center;gap:32px">
-          <img src="Logos/Logos%20CPG/Doors/puravida2.png" alt="Pura Vida" style="height:44px;object-fit:contain;mix-blend-mode:multiply">
-          <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-size:18px">🇸🇪</span><img src="Logos/Logos%20CPG/Doors/Cultum2.png" alt="Cultum" style="height:64px;object-fit:contain;mix-blend-mode:multiply"></div>
-          <img src="Logos/Logos%20CPG/Doors/popupgrocer.jpg" alt="Pop Up Grocer" style="height:44px;object-fit:contain;mix-blend-mode:multiply">
-          <img src="Logos/Logos%20CPG/Doors/pause%202.jpg" alt="Pause" style="height:44px;object-fit:contain;mix-blend-mode:darken">
+        <div style="font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:10px">Validated Doors</div>
+        <div style="display:flex;align-items:center;gap:20px">
+          <img src="Logos/Logos%20CPG/Doors/puravida2.png" alt="Pura Vida" style="height:32px;object-fit:contain;mix-blend-mode:multiply">
+          <img src="Logos/Logos%20CPG/Doors/Cultum2.png" alt="Cultum" style="height:40px;object-fit:contain;mix-blend-mode:multiply">
+          <img src="Logos/Logos%20CPG/Doors/popupgrocer.jpg" alt="Pop Up Grocer" style="height:32px;object-fit:contain;mix-blend-mode:multiply">
+          <img src="Logos/Logos%20CPG/Doors/pause%202.jpg" alt="Pause" style="height:32px;object-fit:contain;mix-blend-mode:darken">
         </div>
       </div>
     </div>
 
   </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>15</span></div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>11</span></div>
 </div>
 
 <!-- ============================================ -->
-<!-- S17 · TEAM -->
+<!-- SLIDE 12 · BRAND + COMMUNITY (merged) -->
 <!-- ============================================ -->
-<div class="slide light" id="s15">
+<div class="slide light" id="s12-brand" style="background:#FAFAFA">
+  <div style="width:100%;height:100%;display:flex;flex-direction:column;padding:28px 64px 24px;position:relative;z-index:2">
+
+    <!-- Header -->
+    <div style="margin-bottom:16px">
+      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:34px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px">Earned press, <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:40px">premium partnerships</span>, and a community that stays</div>
+    </div>
+
+    <!-- As Seen In logos -->
+    <div style="margin-bottom:20px">
+      <div style="font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:10px">As Seen In</div>
+      <div style="display:flex;align-items:center;gap:28px">
+        <img src="Images%20Deck/forbes-logo.png" alt="Forbes" style="width:90px;object-fit:contain;mix-blend-mode:multiply">
+        <img src="Images%20Deck/vogue-logo.png" alt="Vogue" style="width:90px;object-fit:contain;mix-blend-mode:multiply">
+        <img src="Images%20Deck/marie-claire-logo.png" alt="Marie Claire" style="width:90px;object-fit:contain;mix-blend-mode:multiply">
+        <img src="Images%20Deck/wellworthy-logo.png" alt="Wellworthy" style="width:90px;object-fit:contain;mix-blend-mode:multiply">
+        <img src="Images%20Deck/bazaar-logo.png" alt="Harper's Bazaar" style="width:90px;object-fit:contain;mix-blend-mode:multiply">
+        <img src="Images%20Deck/womens-health-logo.png" alt="Women's Health" style="width:90px;object-fit:contain;mix-blend-mode:multiply">
+      </div>
+    </div>
+
+    <!-- 4 cards: 3 brand partners + 1 community -->
+    <div style="display:flex;gap:12px;flex:1;min-height:0">
+      <!-- Pura Vida -->
+      <div style="flex:1;position:relative;overflow:hidden;border-radius:10px">
+        <img src="Images%20Deck/pura-vida-shot.jpg" alt="Pura Vida x Happy Aging" style="width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,transparent 40%)"></div>
+        <div style="position:absolute;top:14px;left:14px;z-index:2">
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;color:#fff">Pura Vida</div>
+        </div>
+      </div>
+      <!-- Reserve -->
+      <div style="flex:1;position:relative;overflow:hidden;border-radius:10px">
+        <img src="Images%20Deck/date-vibes-post.png" alt="Happy Aging x Reserve" style="width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,transparent 40%)"></div>
+        <div style="position:absolute;top:14px;left:14px;z-index:2">
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;color:#fff">Reserve</div>
+        </div>
+      </div>
+      <!-- Natura Bisse -->
+      <div style="flex:1;position:relative;overflow:hidden;border-radius:10px">
+        <img src="Images%20Deck/MMS__MMS.png" alt="HA x Natura Bisse" style="width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,transparent 40%)"></div>
+        <div style="position:absolute;top:14px;left:14px;z-index:2">
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;color:#fff">Natura Bisse</div>
+        </div>
+      </div>
+      <!-- Community / Events -->
+      <div style="flex:1;border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="flex:1;position:relative;min-height:0;display:flex;gap:2px">
+          <div style="flex:1;position:relative;overflow:hidden">
+            <img src="Images%20Deck/community-event.jpg" alt="Events" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div style="flex:1;position:relative;overflow:hidden">
+            <img src="Images%20Deck/event-wellness-class.png" alt="Wellness" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,transparent 40%);z-index:2"></div>
+          <div style="position:absolute;top:14px;left:14px;z-index:3">
+            <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:14px;color:#fff">Community</div>
+          </div>
+        </div>
+        <div style="padding:12px 14px;background:#fff">
+          <div style="font-size:12px;font-weight:700;color:var(--lt-ink);margin-bottom:3px">The Longevity Club</div>
+          <div style="font-size:10px;color:var(--lt-mut);line-height:1.4">200+ active members with exclusive events and a direct feedback loop</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>12</span></div>
+</div>
+
+<!-- ============================================ -->
+<!-- SLIDE 14 · TEAM (same as v6) -->
+<!-- ============================================ -->
+<div class="slide light" id="s14-team">
   <div style="display:flex;flex-direction:column;width:100%;height:100%;padding:32px 64px 48px">
 
     <!-- Headline -->
@@ -1508,7 +1389,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">Founded Desinch&aacute; (Acquired)<br>Founded Hidratei ($70M ARR)<br>15+ Years in the CPG space</div>
         <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
           <img src="Images%20Deck/hidratei-logo.png" alt="Hidratei" style="height:40px;object-fit:contain;opacity:.85">
-          <img src="Images%20Deck/desincha-logo.png" alt="Desinchá" style="height:40px;object-fit:contain;opacity:.85">
+          <img src="Images%20Deck/desincha-logo.png" alt="Desincha" style="height:40px;object-fit:contain;opacity:.85">
         </div>
       </div>
 
@@ -1520,6 +1401,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">Ex-COO at Hidratei ($70M ARR)</div>
         <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
           <img src="Images%20Deck/hidratei-logo.png" alt="Hidratei" style="height:40px;object-fit:contain;opacity:.85">
+          <img src="Images%20Deck/humanx-logo.png" alt="HumanX" style="height:20px;object-fit:contain;opacity:.85">
         </div>
       </div>
 
@@ -1548,7 +1430,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 
     </div>
 
-    <!-- Row 2: Founding Partners (3 people) + Advisor + Coefficient card -->
+    <!-- Row 2: Founding Partners + Coefficient -->
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:start">
 
       <!-- Martha -->
@@ -1585,17 +1467,6 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
         </div>
       </div>
 
-      <!-- Bill Brady -->
-      <div style="display:flex;flex-direction:column;align-items:flex-start">
-        <div style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;overflow:hidden"><img src="Images%20Deck/bill-brady.png" alt="Bill Brady" style="width:100%;height:100%;object-fit:cover"></div>
-        <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:var(--lt-ink);line-height:1.2">Bill Brady</div>
-        <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(74,96,128,.08);color:#4A6080;margin:6px 0 8px;letter-spacing:.02em">Advisor</div>
-        <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">CFO at Propeller<br>Advisor to brands like<br>Gruns &amp; Lemme</div>
-        <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
-          <img src="Images%20Deck/propeller-logo.png" alt="Propeller" style="height:20px;object-fit:contain;opacity:.85;mix-blend-mode:multiply">
-        </div>
-      </div>
-
       <!-- Coefficient Capital card -->
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;background:#fff;border:1px solid var(--lt-border);border-radius:14px;text-align:center">
         <div style="font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--lt-mut2);margin-bottom:6px">Backed by world class investors:</div>
@@ -1608,253 +1479,225 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
     </div>
 
   </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>16</span></div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>14</span></div>
 </div>
 
 <!-- ============================================ -->
-<!-- S18 · GROWTH ROADMAP -->
+<!-- SLIDE 15 · USE OF PROCEEDS (NEW) -->
 <!-- ============================================ -->
-<div class="slide light" id="s16">
-  <div style="display:flex;flex-direction:column;width:100%;height:100%">
-
-    <!-- Eyebrow + massive headline (Hims: ~45% of slide) -->
-    <div style="padding:32px 64px 0">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:14px">GROWTH ROADMAP</div>
-      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px">Four proven levers to <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">scale what's working</span></div>
-    </div>
-
-    <!-- Four columns: big title + visual only (no descriptions) -->
-    <div style="padding:28px 64px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
-
-      <!-- Col 1: Scale Acquisition -->
-      <div style="display:flex;flex-direction:column;gap:24px">
-        <div style="font-size:21px;font-weight:400;color:var(--lt-ink);line-height:1.2">Scale the<br>acquisition engine</div>
-        <!-- Visual -->
-        <div style="height:450px;border-radius:14px;overflow:hidden">
-          <img src="Images%20Deck/nad-ad-creative.png" alt="NAD+ Ad Creative" style="width:100%;height:100%;object-fit:cover;border-radius:14px">
-        </div>
-      </div>
-
-      <!-- Col 2: Retail Activation -->
-      <div style="display:flex;flex-direction:column;gap:24px">
-        <div style="font-size:21px;font-weight:400;color:var(--lt-ink);line-height:1.2">Activate national<br>retail distribution</div>
-        <!-- Visual: shelf image -->
-        <div style="height:450px;border-radius:14px;overflow:hidden;position:relative">
-          <img src="Images Deck/Community.png" style="width:100%;height:100%;object-fit:cover" alt="Retail">
-        </div>
-      </div>
-
-      <!-- Col 3: Portfolio Expansion -->
-      <div style="display:flex;flex-direction:column;gap:24px">
-        <div style="font-size:21px;font-weight:400;color:var(--lt-ink);line-height:1.2">Expand the<br>product portfolio</div>
-        <!-- Visual: product image -->
-        <div style="height:450px;border-radius:14px;overflow:hidden">
-          <img src="Images%20Deck/new-products-blue.png" alt="New Products" style="width:100%;height:100%;object-fit:cover;border-radius:14px">
-        </div>
-      </div>
-
-      <!-- Col 4: R&D Investment -->
-      <div style="display:flex;flex-direction:column;gap:24px">
-        <div style="font-size:21px;font-weight:400;color:var(--lt-ink);line-height:1.2">Invest in<br>R&D and science</div>
-        <!-- Visual: science/clinical -->
-        <div style="height:450px;border-radius:14px;overflow:hidden">
-          <img src="Images%20Deck/rd-lab.jpg" alt="R&D Lab" style="width:100%;height:100%;object-fit:cover;border-radius:14px">
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>17</span></div>
-</div>
-
-<!-- ============================================ -->
-<!-- S19 · 12-MONTH ROADMAP -->
-<!-- ============================================ -->
-<div class="slide light" id="s17">
-  <div style="display:flex;flex-direction:column;width:100%;height:100%">
+<div class="slide light" id="s15-proceeds" style="background:#FAFAFA">
+  <div style="width:100%;height:100%;display:flex;flex-direction:column;padding:40px 64px 48px;position:relative;z-index:2">
 
     <!-- Header -->
-    <div style="padding:32px 64px 0">
-      <div style="font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--lt-mut2);margin-bottom:14px">ROADMAP</div>
-      <div style="width:40px;height:2px;background:var(--wine);opacity:.5;margin:10px 0 16px"></div>
-      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;line-height:1.15;letter-spacing:-.3px;color:var(--lt-ink)">The next <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">12 months</span></div>
+    <div style="margin-bottom:28px">
+      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px">Capital deployed into <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">three proven growth levers</span></div>
     </div>
 
-    <!-- Timeline -->
-    <div style="flex:1;padding:20px 64px 0;display:flex;flex-direction:column;justify-content:center">
+    <!-- 3 columns — text above, tall image below -->
+    <div style="display:flex;gap:28px;flex:1;min-height:0">
 
-      <!-- Horizontal line with checkpoint dots -->
-      <div style="position:relative;height:28px;margin-bottom:24px">
-        <!-- The line -->
-        <div style="position:absolute;top:11px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--wine),rgba(192,65,76,.6),rgba(192,65,76,.35),rgba(192,65,76,.18));border-radius:2px"></div>
-        <!-- Dots at 4 positions -->
-        <div style="position:absolute;top:3px;left:0;width:20px;height:20px;border-radius:50%;background:var(--wine);border:3px solid var(--lt-bg)"></div>
-        <div style="position:absolute;top:4px;left:calc(33.33% - 9px);width:18px;height:18px;border-radius:50%;background:rgba(192,65,76,.6);border:3px solid var(--lt-bg)"></div>
-        <div style="position:absolute;top:4px;left:calc(66.66% - 9px);width:18px;height:18px;border-radius:50%;background:rgba(192,65,76,.35);border:3px solid var(--lt-bg)"></div>
-        <div style="position:absolute;top:4px;right:0;width:18px;height:18px;border-radius:50%;background:rgba(192,65,76,.18);border:3px solid var(--lt-bg)"></div>
+      <!-- Col 1: Scale DTC -->
+      <div style="flex:1;display:flex;flex-direction:column">
+        <div style="height:90px;margin-bottom:12px">
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:19px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.2px">Scale DTC<br>acquisition</div>
+          <div style="font-size:13px;color:var(--lt-mut);line-height:1.5;margin-top:8px">Double ad spend behind proven unit economics and ROAS</div>
+        </div>
+        <div style="flex:1;min-height:0;border-radius:12px;overflow:hidden">
+          <img src="Images%20Deck/capsules-floating.png" alt="Scale DTC" style="width:100%;height:100%;object-fit:cover">
+        </div>
       </div>
 
-      <!-- 4-column content below the line -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0">
-
-        <!-- Q3 2026 -->
-        <div style="padding-right:20px">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--wine);margin-bottom:16px">Q3 2026</div>
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">Targeting first $1M month</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Run rate doubling from May's $567K</div>
-            </div>
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">R&D + repackaging</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Capsules reformulation</div>
-            </div>
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">8,000+ subscribers</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Returning MRR floor at $345K</div>
-            </div>
-          </div>
+      <!-- Col 2: National Retail -->
+      <div style="flex:1;display:flex;flex-direction:column">
+        <div style="height:90px;margin-bottom:12px">
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:19px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.2px">Launch national<br>retail</div>
+          <div style="font-size:13px;color:var(--lt-mut);line-height:1.5;margin-top:8px">Slotting fees, trade spend and field team for national chains</div>
         </div>
-
-        <!-- Q4 2026 -->
-        <div style="padding:0 20px;border-left:1px solid rgba(0,0,0,.06)">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--wine);opacity:.75;margin-bottom:16px">Q4 2026</div>
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">Retail activation begins</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">First 50 premium doors open</div>
-            </div>
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">Gummies launch</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Fourth hero SKU enters market</div>
-            </div>
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">DTC approaching breakeven</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Contribution margin positive</div>
-            </div>
-          </div>
+        <div style="flex:1;min-height:0;border-radius:12px;overflow:hidden">
+          <img src="Images%20Deck/popup-grocer-store.png" alt="National Retail" style="width:100%;height:100%;object-fit:cover">
         </div>
-
-        <!-- Q1 2027 -->
-        <div style="padding:0 20px;border-left:1px solid rgba(0,0,0,.06)">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--wine);opacity:.5;margin-bottom:16px">Q1 2027</div>
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">Targeting $2M months</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Scaling into new channels + SKUs</div>
-            </div>
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">National chain rollout</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Sprouts, Whole Foods expansion</div>
-            </div>
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">Portfolio patent filing</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Q2 2027 -->
-        <div style="padding-left:20px;border-left:1px solid rgba(0,0,0,.06)">
-          <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--wine);opacity:.3;margin-bottom:16px">Q2 2027</div>
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">Company EBITDA breakeven</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Per current model trajectory</div>
-            </div>
-            <div>
-              <div style="font-size:14px;font-weight:700;color:var(--lt-ink);line-height:1.35">100+ retail doors</div>
-              <div style="font-size:11px;color:var(--lt-mut);line-height:1.45;margin-top:2px">Proven economics at scale</div>
-            </div>
-            <div>
-              <div style="display:inline-flex;padding:4px 14px;border-radius:20px;background:rgba(192,65,76,.08);font-size:14px;font-weight:700;color:var(--wine);line-height:1.35">$20M+ ARR run rate</div>
-            </div>
-          </div>
-        </div>
-
       </div>
+
+      <!-- Col 3: New Products -->
+      <div style="flex:1;display:flex;flex-direction:column">
+        <div style="height:90px;margin-bottom:12px">
+          <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:700;font-size:19px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.2px">Expand product<br>portfolio</div>
+          <div style="font-size:13px;color:var(--lt-mut);line-height:1.5;margin-top:8px">New SKUs and formats to deepen the brand moat</div>
+        </div>
+        <div style="flex:1;min-height:0;border-radius:12px;overflow:hidden">
+          <img src="Images%20Deck/product-cans-blue.png" alt="New Products" style="width:100%;height:100%;object-fit:cover">
+        </div>
+      </div>
+
     </div>
 
-    <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>18</span></div>
   </div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>15</span></div>
 </div>
 
-
 <!-- ============================================ -->
-<!-- CLOSING · Full-bleed image -->
+<!-- SLIDE 16 · CLOSING (same as v6) -->
 <!-- ============================================ -->
-<div class="slide dark" id="s-closing" style="background:none">
+<div class="slide dark" id="s16-closing" style="background:none">
   <img src="Images%20Deck/ha-cover-new.png" alt="Happy Aging" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
   <div class="foot" style="z-index:2"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span></span></div>
 </div>
 
 </div><!-- /deck -->
 
+<!-- EMAIL GATE MODAL -->
+<div id="email-gate" style="position:fixed;inset:0;z-index:9999;background:linear-gradient(155deg,#8C3B42 0%,#B95A5E 30%,#C47072 60%,#D4956E 100%);display:flex;align-items:center;justify-content:center">
+  <div style="text-align:center;max-width:420px;padding:40px">
+    <img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" alt="Happy Aging" style="width:180px;margin-bottom:40px;opacity:.9">
+    <div style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,.6);margin-bottom:36px">Enter your email to access this deck</div>
+    <form id="email-form" style="display:flex;flex-direction:column;gap:12px">
+      <input id="gate-email" type="email" required placeholder="your@email.com" style="width:100%;padding:14px 18px;border:1px solid rgba(255,255,255,.25);border-radius:10px;background:rgba(255,255,255,.1);color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;outline:none;backdrop-filter:blur(8px);transition:border-color .2s" onfocus="this.style.borderColor='rgba(255,255,255,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.25)'">
+      <button type="submit" style="padding:14px 18px;border:none;border-radius:10px;background:#fff;color:#3D1518;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">View Deck</button>
+    </form>
+    <div id="gate-error" style="font-size:13px;color:rgba(255,200,200,.8);margin-top:12px;display:none"></div>
+  </div>
+</div>
+
 <!-- NAV -->
-<button class="nav prev" onclick="go(-1)">‹</button>
-<button class="nav next" onclick="go(1)">›</button>
-<div class="ctr" id="ctr">1</div>
-<div class="prog" id="prog"></div>
+<button class="nav prev" onclick="go(-1)" style="display:none">&#8249;</button>
+<button class="nav next" onclick="go(1)" style="display:none">&#8250;</button>
+<div class="ctr" id="ctr" style="display:none">1</div>
+<div class="prog" id="prog" style="display:none"></div>
 
 <script>
-const slides=document.querySelectorAll('.slide'), total=slides.length;
-let cur=0;
-function show(n){slides.forEach(s=>s.classList.remove('active'));slides[n].classList.add('active');document.getElementById('ctr').textContent=(n+1)+' / '+total;document.getElementById('prog').style.width=((n+1)/total*100)+'%';}
-function go(d){cur=Math.max(0,Math.min(total-1,cur+d));show(cur);}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1);});
+// --- Supabase config ---
+const SUPABASE_URL = 'https://jvfzrlvmjizddbykbzsf.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp2ZnpybHZtaml6ZGRieWtienNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExNDQ1MTYsImV4cCI6MjA5NjcyMDUxNn0.naSDvJl2m6X6leXgue-qKpncQ7UBTBEgmq2cGWUNdEM';
+const TELEGRAM_BOT = '8937615102:AAG_aTGfMIcgeD3AZULhcWKI0633k-Jll-g';
+const TELEGRAM_CHAT = '6225450466';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
-// Touch swipe support for mobile
-let touchStartX=0,touchStartY=0,touchEndX=0;
-document.addEventListener('touchstart',e=>{touchStartX=e.changedTouches[0].screenX;touchStartY=e.changedTouches[0].screenY;},{passive:true});
-document.addEventListener('touchend',e=>{touchEndX=e.changedTouches[0].screenX;const dx=touchStartX-touchEndX;const dy=Math.abs(touchStartY-e.changedTouches[0].screenY);if(Math.abs(dx)>50&&dy<100){if(dx>0)go(1);else go(-1);}},{passive:true});
+let sessionId = null;
+let slideEnteredAt = null;
+let viewerEmail = '';
 
-// Tap left/right halves to navigate on mobile
-document.querySelector('.deck').addEventListener('click',e=>{if(window.innerWidth>768)return;const rect=e.currentTarget.getBoundingClientRect();const x=e.clientX-rect.left;if(x>rect.width*0.5)go(1);else go(-1);});
+// --- Slide navigation ---
+const slides = document.querySelectorAll('.slide'), total = slides.length;
+let cur = 0;
+
+function show(n) {
+  // Track time on previous slide
+  if (sessionId && slideEnteredAt !== null) {
+    const duration = (Date.now() - slideEnteredAt) / 1000;
+    const prevSlide = slides[cur];
+    sb.from('slide_views').insert({
+      session_id: sessionId,
+      slide_number: cur + 1,
+      slide_id: prevSlide ? prevSlide.id : null,
+      duration_seconds: Math.round(duration * 10) / 10
+    }).then(() => {});
+  }
+  slideEnteredAt = sessionId ? Date.now() : null;
+
+  slides.forEach(s => s.classList.remove('active'));
+  slides[n].classList.add('active');
+  document.getElementById('ctr').textContent = (n + 1) + ' / ' + total;
+  document.getElementById('prog').style.width = ((n + 1) / total * 100) + '%';
+}
+
+function go(d) {
+  const prev = cur;
+  cur = Math.max(0, Math.min(total - 1, cur + d));
+  if (cur !== prev) show(cur);
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('email-gate').style.display !== 'none') return;
+  if (e.key === 'ArrowRight' || e.key === ' ') go(1);
+  if (e.key === 'ArrowLeft') go(-1);
+});
+
+// Touch swipe
+let touchStartX = 0, touchStartY = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; touchStartY = e.changedTouches[0].screenY; }, { passive: true });
+document.addEventListener('touchend', e => { const dx = touchStartX - e.changedTouches[0].screenX; const dy = Math.abs(touchStartY - e.changedTouches[0].screenY); if (Math.abs(dx) > 50 && dy < 100) { if (dx > 0) go(1); else go(-1); } }, { passive: true });
+
+// Mobile tap
+document.querySelector('.deck').addEventListener('click', e => { if (window.innerWidth > 768) return; const rect = e.currentTarget.getBoundingClientRect(); const x = e.clientX - rect.left; if (x > rect.width * 0.5) go(1); else go(-1); });
+
+// --- Email gate ---
+document.getElementById('email-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('gate-email').value.trim();
+  if (!email) return;
+  viewerEmail = email;
+
+  const btn = this.querySelector('button');
+  btn.textContent = 'Loading...';
+  btn.disabled = true;
+
+  try {
+    // Create session in Supabase
+    const sid = crypto.randomUUID();
+    const { error } = await sb.from('deck_sessions').insert({
+      id: sid,
+      email: email,
+      user_agent: navigator.userAgent,
+      referrer: document.referrer || null
+    });
+
+    if (error) throw error;
+    sessionId = sid;
+
+    // Send Telegram notification (fire and forget)
+    const now = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
+    const msg = `<b>New deck viewer</b>\n${email}\n${now} ET`;
+    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT, text: msg, parse_mode: 'HTML' })
+    }).catch(() => {});
+
+    // Hide gate, show nav
+    document.getElementById('email-gate').style.display = 'none';
+    document.querySelectorAll('.nav, .ctr, .prog').forEach(el => el.style.display = '');
+    slideEnteredAt = Date.now();
+    show(0);
+
+  } catch (err) {
+    const errEl = document.getElementById('gate-error');
+    errEl.textContent = 'Something went wrong. Please try again.';
+    errEl.style.display = 'block';
+    btn.textContent = 'View Deck';
+    btn.disabled = false;
+  }
+});
+
+// --- Flush final slide on exit ---
+window.addEventListener('beforeunload', () => {
+  if (sessionId && slideEnteredAt) {
+    const duration = (Date.now() - slideEnteredAt) / 1000;
+    const payload = JSON.stringify({
+      session_id: sessionId,
+      slide_number: cur + 1,
+      slide_id: slides[cur] ? slides[cur].id : null,
+      duration_seconds: Math.round(duration * 10) / 10
+    });
+    const headers = { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON, 'Authorization': 'Bearer ' + SUPABASE_ANON, 'Prefer': 'return=minimal' };
+    fetch(`${SUPABASE_URL}/rest/v1/slide_views`, { method: 'POST', headers: headers, body: payload, keepalive: true });
+  }
+});
+
+// --- Heartbeat: flush current slide every 30s ---
+setInterval(() => {
+  if (sessionId && slideEnteredAt) {
+    const duration = (Date.now() - slideEnteredAt) / 1000;
+    sb.from('slide_views').insert({
+      session_id: sessionId,
+      slide_number: cur + 1,
+      slide_id: slides[cur] ? slides[cur].id : null,
+      duration_seconds: Math.round(duration * 10) / 10
+    }).then(() => {});
+    slideEnteredAt = Date.now();
+  }
+}, 30000);
 
 show(0);
-
-// Revenue chart
-const revCtx=document.getElementById('revChart');
-if(revCtx){
-  new Chart(revCtx,{type:'bar',data:{
-    labels:['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'],
-    datasets:[{
-      label:'Monthly Revenue',
-      data:[150,170,190,210,250,310,380,290,340,472,424,567],
-      backgroundColor:'#C0414C',borderRadius:4,borderSkipped:false
-    }]
-  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'$'+v+'K',font:{size:10},color:'#8A7F70'},grid:{color:'#E7E1D6'}},x:{ticks:{font:{size:10},color:'#8A7F70'},grid:{display:false}}}}});
-}
-
-// MRR chart
-const mrrCtx=document.getElementById('mrrChart');
-if(mrrCtx){
-  new Chart(mrrCtx,{type:'line',data:{
-    labels:['Feb 25','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan 26','Feb','Mar','Apr','May'],
-    datasets:[{
-      label:'Returning MRR',
-      data:[34,42,50,58,68,78,90,102,115,130,148,155,165,180,195,219],
-      borderColor:'#C0414C',backgroundColor:'rgba(192,65,76,.12)',fill:true,tension:.35,pointRadius:3,pointBackgroundColor:'#C0414C',borderWidth:2.5
-    }]
-  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'$'+v+'K',font:{size:10},color:'#8A7F70'},grid:{color:'#E7E1D6'}},x:{ticks:{font:{size:9},color:'#8A7F70',maxRotation:45},grid:{display:false}}}}});
-}
-
-// CAC chart
-const cacCtx=document.getElementById('cacChart');
-if(cacCtx){
-  new Chart(cacCtx,{type:'line',data:{
-    labels:['Oct 25','Nov','Dec','Jan 26','Feb','Mar','Apr','May'],
-    datasets:[{
-      label:'CAC',
-      data:[168,185,203,145,119,128,134,136],
-      borderColor:'#C0414C',backgroundColor:'rgba(192,65,76,.08)',fill:true,tension:.3,pointRadius:4,pointBackgroundColor:'#C0414C',borderWidth:2.5
-    },{
-      label:'Ceiling',
-      data:[175,175,175,175,175,175,175,175],
-      borderColor:'#A89C8B',borderDash:[6,4],borderWidth:1.5,pointRadius:0,fill:false
-    }]
-  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{min:80,max:220,ticks:{callback:v=>'$'+v,font:{size:10},color:'#8A7F70'},grid:{color:'#E7E1D6'}},x:{ticks:{font:{size:10},color:'#8A7F70'},grid:{display:false}}}}});
-}
 </script>
 </body>
 </html>
