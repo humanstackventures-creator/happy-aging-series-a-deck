@@ -29,175 +29,16 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 /* ===================== MOBILE ===================== */
 @media (max-width:768px) {
   body { overflow:hidden; }
-  .deck { width:100vw !important; height:100vh !important; height:100dvh !important; transform:none !important; }
-  .slide { flex-direction:column !important; overflow-y:auto !important; -webkit-overflow-scrolling:touch; }
+  .deck { width:100vw !important; height:100vh !important; height:100dvh !important; transform:none !important; box-shadow:none !important; }
+  .slide { overflow-y:auto !important; -webkit-overflow-scrolling:touch; }
   .nav { display:none !important; }
   .ctr { bottom:6px !important; font-size:10px !important; }
   .prog { height:2px !important; }
-
-  /* Footer */
   .foot { padding:8px 20px 10px !important; }
   .foot span { font-size:8px !important; }
   .foot-logo { height:9px !important; }
-
-  /* Typography scale */
-  .h1 { font-size:24px !important; }
-  .h1.lg { font-size:28px !important; }
-  .sub { font-size:12px !important; }
-  .eyebrow { font-size:10px !important; }
-
-  /* ---- SLIDE 1 · COVER ---- */
-  #s1 img { object-position:center !important; }
-
-  /* ---- SLIDE 2 · PROBLEM ---- */
-  #s2-problem > div:first-child { padding:32px 24px !important; }
-  #s2-problem > div:first-child > div:first-child { font-size:22px !important; }
-  #s2-problem > div:first-child > div:first-child span { font-size:26px !important; }
-  #s2-problem > div:first-child > div:last-child { font-size:14px !important; }
-
-  /* ---- SLIDE 3 · SOLUTION ---- */
-  #s3-solution > div:first-child { flex-direction:column !important; }
-  #s3-solution > div:first-child > div:first-child { width:100% !important; padding:28px 24px 20px !important; }
-  #s3-solution > div:first-child > div:first-child > div { font-size:22px !important; margin-bottom:16px !important; }
-  #s3-solution > div:first-child > div:first-child > div img { height:22px !important; }
-  #s3-solution > div:first-child > div:first-child > div span { font-size:28px !important; }
-  #s3-solution > div:first-child > div:last-child { width:100% !important; height:50vh !important; min-height:280px; }
-  #s3-solution > div:first-child > div:last-child > div:last-child > div { font-size:20px !important; }
-
-  /* ---- SLIDE 4 · AT A GLANCE ---- */
-  #s4-glance > div { padding:24px 16px !important; }
-  #s4-glance .serif { font-size:20px !important; }
-  #s4-glance .serif img { height:18px !important; }
-  /* Main card → stack vertically */
-  #s4-glance > div > div:nth-child(2) { flex-direction:column !important; width:100% !important; padding:16px !important; min-height:auto !important; }
-  /* Left mission text */
-  #s4-glance > div > div:nth-child(2) > div:first-child { border-right:none !important; border-bottom:1px solid rgba(0,0,0,.06) !important; padding:8px 8px 16px !important; }
-  #s4-glance > div > div:nth-child(2) > div:first-child > div { font-size:14px !important; white-space:normal !important; line-height:1.8 !important; }
-  #s4-glance > div > div:nth-child(2) > div:first-child > div img { width:36px !important; height:24px !important; }
-  #s4-glance > div > div:nth-child(2) > div:first-child > div span { font-size:17px !important; }
-  /* Metric grid → 2 cols */
-  #s4-glance > div > div:nth-child(2) > div:nth-child(2) { grid-template-columns:1fr 1fr !important; }
-  #s4-glance > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(2) { font-size:24px !important; }
-  /* Revenue bars */
-  #s4-glance > div > div:nth-child(2) > div:last-child { border-left:none !important; border-top:1px solid rgba(0,0,0,.06) !important; padding:16px 0 0 !important; }
-
-  /* ---- SLIDE 5 · COMPETITIVE ---- */
-  #s5-competitive > div:first-child { flex-direction:column !important; padding:0 !important; }
-  #s5-competitive > div:first-child > div:first-child { flex:none !important; padding:28px 24px 16px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:first-child { font-size:22px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:first-child span { font-size:28px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:nth-child(2) { font-size:14px !important; }
-  /* Competitor ads collage */
-  #s5-competitive > div:first-child > div:first-child > div:last-child { width:100% !important; height:160px !important; margin-top:16px !important; overflow:hidden; }
-  #s5-competitive > div:first-child > div:first-child > div:last-child > div { width:65px !important; height:115px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(1) { left:0 !important; }
-  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(2) { left:48px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(3) { left:96px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(4) { left:144px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(5) { left:192px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(6) { left:240px !important; }
-  #s5-competitive > div:first-child > div:first-child > div:last-child > div:nth-child(7) { left:288px !important; }
-  /* Quadrant chart */
-  #s5-competitive > div:first-child > div:last-child { flex:none !important; padding:0 24px 20px !important; }
-  #s5-competitive > div:first-child > div:last-child > div { width:300px !important; height:300px !important; margin:0 auto; }
-
-  /* ---- SLIDE 6 · THESIS ---- */
-  #s6-thesis > div:first-child { padding:24px 20px 40px !important; }
-  #s6-thesis > div:first-child > div:nth-child(2) { font-size:22px !important; margin-bottom:20px !important; }
-  #s6-thesis > div:first-child > div:nth-child(2) span { font-size:28px !important; }
-  #s6-thesis > div:first-child > div:last-child { flex-direction:column !important; gap:12px !important; overflow-y:auto !important; }
-  #s6-thesis > div:first-child > div:last-child > div { flex:none !important; }
-  #s6-thesis > div:first-child > div:last-child > div > div:first-child { height:auto !important; padding:16px 16px 10px !important; }
-  #s6-thesis > div:first-child > div:last-child > div > div:first-child > div:nth-child(2) { font-size:16px !important; height:auto !important; margin-bottom:6px !important; }
-  #s6-thesis > div:first-child > div:last-child > div > div:first-child > div:last-child { font-size:12px !important; }
-  #s6-thesis > div:first-child > div:last-child > div > div:last-child { height:140px !important; flex:none !important; }
-
-  /* ---- SLIDE 7 · PRODUCTS ---- */
-  #s5-products > div > div:first-child { padding:20px 24px 12px !important; }
-  #s5-products > div > div:first-child > div { font-size:22px !important; }
-  #s5-products > div > div:first-child > div span { font-size:28px !important; }
-  #s5-products > div > div:nth-child(2) { grid-template-columns:1fr 1fr !important; }
-
-  /* ---- SLIDE 8 · REVENUE TRAJECTORY ---- */
-  #s7-revenue > div { padding:24px 20px 32px !important; }
-  #s7-revenue > div > div:first-child > div:first-child { font-size:22px !important; }
-  #s7-revenue > div > div:first-child > div:first-child span { font-size:28px !important; }
-  #s7-revenue > div > div:nth-child(2) { flex-direction:column !important; margin-top:20px !important; }
-  #s7-revenue > div > div:nth-child(2) > div:first-child { padding:0 !important; }
-  #s7-revenue > div > div:nth-child(2) > div:first-child > div:first-child > div > div:first-child { font-size:7px !important; }
-  #s7-revenue > div > div:nth-child(2) > div:last-child { width:100% !important; flex-direction:row !important; gap:16px !important; padding:12px 0 !important; border-top:1px solid rgba(0,0,0,.06); }
-  #s7-revenue > div > div:nth-child(2) > div:last-child > div { padding:0 !important; text-align:center; }
-  #s7-revenue > div > div:nth-child(2) > div:last-child > div > div:first-child { font-size:24px !important; }
-  #s7-revenue > div > div:nth-child(2) > div:last-child > div > div:last-child { font-size:10px !important; }
-
-  /* ---- SLIDE 9 · RETENTION ---- */
-  #s8-retention > div { padding:24px 16px 0 !important; }
-  #s8-retention > div > div:first-child > div { font-size:20px !important; }
-  #s8-retention > div > div:first-child > div span { font-size:26px !important; }
-  #s8-retention > div > div:nth-child(2) { flex-direction:column !important; gap:24px !important; }
-
-  /* ---- SLIDE 10 · CAC / UNIT ECONOMICS ---- */
-  #s9-cac > div { padding:24px 16px 0 !important; }
-  #s9-cac > div > div:first-child > div { font-size:20px !important; }
-  #s9-cac > div > div:first-child > div span { font-size:26px !important; }
-  #s9-cac > div > div:nth-child(2) { flex-direction:column !important; gap:20px !important; }
-
-  /* ---- SLIDE 11 · CHANNELS ---- */
-  #s10-channels > div > div:first-child { padding:24px 20px 0 !important; }
-  #s10-channels > div > div:first-child > div:first-child { font-size:22px !important; }
-  #s10-channels > div > div:first-child > div:first-child span { font-size:28px !important; }
-  /* Hide floating callouts on mobile — too complex */
-  #s10-channels > div > div:nth-child(2) { display:none !important; }
-  #s10-channels > div > div:nth-child(3) { margin:16px 20px 0 !important; padding:8px 0 16px !important; max-height:none !important; gap:8px !important; }
-
-  /* ---- SLIDE 12 · RETAIL ---- */
-  #s13-retail > div:first-child { display:none !important; } /* hide right image */
-  #s13-retail > div:nth-child(2) { width:100% !important; padding:24px 20px 0 !important; }
-  #s13-retail > div:nth-child(2) > div:first-child > div:last-child { font-size:22px !important; }
-  #s13-retail > div:nth-child(2) > div:first-child > div:last-child span { font-size:28px !important; }
-  #s13-retail > div:nth-child(2) > div:nth-child(2) { flex-direction:column !important; gap:20px !important; margin-top:16px !important; }
-  #s13-retail > div:nth-child(2) > div:nth-child(2) > div:last-child { width:100% !important; }
-  /* Bottom logos */
-  #s13-retail > div:nth-child(2) > div:last-child { flex-direction:column !important; gap:12px !important; margin-top:20px !important; padding:10px 0 20px !important; }
-  #s13-retail > div:nth-child(2) > div:last-child > div:nth-child(2) { display:none !important; }
-
-  /* ---- SLIDE 13 · BRAND ---- */
-  #s12-brand > div { padding:20px 16px 16px !important; }
-  #s12-brand > div > div:first-child > div { font-size:20px !important; }
-  #s12-brand > div > div:first-child > div span { font-size:26px !important; }
-  #s12-brand > div > div:nth-child(2) > div:last-child img { width:60px !important; }
-  #s12-brand > div > div:last-child { flex-direction:column !important; gap:8px !important; flex:none !important; }
-  #s12-brand > div > div:last-child > div { height:140px !important; flex:none !important; }
-
-  /* ---- SLIDE 14 · TEAM ---- */
-  #s14-team > div { padding:24px 20px 40px !important; overflow-y:auto !important; }
-  #s14-team > div > div:nth-child(2) { font-size:22px !important; margin-bottom:20px !important; }
-  #s14-team > div > div:nth-child(2) span { font-size:28px !important; }
-  #s14-team > div > div:nth-child(3) { grid-template-columns:1fr 1fr !important; gap:16px !important; margin-bottom:20px !important; }
-  #s14-team > div > div:nth-child(3) > div > div:first-child { width:56px !important; height:56px !important; }
-  #s14-team > div > div:nth-child(3) > div > div:nth-child(2) { font-size:13px !important; }
-  #s14-team > div > div:nth-child(3) > div > div:nth-child(3) { font-size:9px !important; padding:3px 8px !important; }
-  #s14-team > div > div:nth-child(3) > div > div:nth-child(4) { font-size:10px !important; }
-  #s14-team > div > div:nth-child(4) { grid-template-columns:1fr 1fr !important; gap:12px !important; }
-  #s14-team > div > div:nth-child(4) > div > div:first-child { width:48px !important; height:48px !important; }
-  #s14-team > div > div:nth-child(4) > div > div:nth-child(2) { font-size:12px !important; }
-
-  /* ---- SLIDE 15 · USE OF PROCEEDS ---- */
-  #s15-proceeds > div { padding:24px 20px 40px !important; }
-  #s15-proceeds > div > div:first-child > div { font-size:22px !important; }
-  #s15-proceeds > div > div:first-child > div span { font-size:28px !important; }
-  #s15-proceeds > div > div:last-child { flex-direction:column !important; gap:16px !important; }
-  #s15-proceeds > div > div:last-child > div > div:first-child { height:auto !important; margin-bottom:8px !important; }
-  #s15-proceeds > div > div:last-child > div > div:first-child > div:first-child { font-size:16px !important; }
-  #s15-proceeds > div > div:last-child > div > div:last-child { height:180px !important; flex:none !important; }
-
-  /* ---- SLIDE 16 · CLOSING ---- */
-  #s16-closing img { object-position:center !important; }
-
-  /* ---- EMAIL GATE ---- */
   #email-gate > div { padding:24px 20px !important; max-width:100% !important; }
-  #email-gate > div > img { width:140px !important; margin-bottom:28px !important; }
-  #email-gate input, #email-gate button { font-size:16px !important; } /* prevent iOS zoom */
+  #email-gate input, #email-gate button { font-size:16px !important; }
 }
 .slide { display:none; width:100%; height:100%; position:absolute; top:0; left:0; }
 .slide.active { display:flex; }
@@ -1696,6 +1537,327 @@ setInterval(() => {
     slideEnteredAt = Date.now();
   }
 }, 30000);
+
+// --- Mobile adaptation ---
+if (window.innerWidth <= 768) {
+  (function mobilize() {
+    const vw = window.innerWidth;
+    const MOBILE_PAD = '20px';
+
+    // Helper: clamp a px font-size
+    function clampFont(el, max) {
+      const cur = parseFloat(el.style.fontSize);
+      if (cur && cur > max) el.style.fontSize = max + 'px';
+    }
+
+    // Helper: reduce padding values
+    function reducePadding(el) {
+      const p = el.style.padding;
+      if (!p) return;
+      // Replace any px padding > 32 with 20
+      el.style.padding = p.replace(/(\d+)px/g, (_, n) => Math.min(parseInt(n), 24) + 'px');
+    }
+
+    // Helper: cap fixed widths to viewport
+    function capWidth(el) {
+      const w = el.style.width;
+      if (w && w.endsWith('px') && parseFloat(w) > vw) {
+        el.style.width = '100%';
+      }
+    }
+
+    // Process every element with inline styles inside slides
+    document.querySelectorAll('.slide [style]').forEach(el => {
+      const s = el.style;
+
+      // Cap widths that exceed viewport
+      capWidth(el);
+
+      // Reduce excessive padding
+      reducePadding(el);
+
+      // Scale down large font sizes
+      const fs = parseFloat(s.fontSize);
+      if (fs >= 43) s.fontSize = '26px';
+      else if (fs >= 36) s.fontSize = '22px';
+      else if (fs >= 32) s.fontSize = '20px';
+      else if (fs >= 28) s.fontSize = '18px';
+      else if (fs >= 22) s.fontSize = '16px';
+      else if (fs >= 18) s.fontSize = '14px';
+
+      // Cap max-width values
+      const mw = s.maxWidth;
+      if (mw && mw.endsWith('px') && parseFloat(mw) > vw - 40) {
+        s.maxWidth = '100%';
+      }
+
+      // Ensure images don't overflow
+      if (el.tagName === 'IMG') {
+        el.style.maxWidth = '100%';
+      }
+    });
+
+    // Stack side-by-side flex layouts (but not small utility rows)
+    document.querySelectorAll('.slide > div > div[style*="display:flex"]').forEach(el => {
+      const s = el.style;
+      // Only stack horizontal flex containers that hold major content panels
+      if (s.flexDirection !== 'column') {
+        const children = el.children;
+        // If any child has width in % like 50% or a flex value, it's a side-by-side layout
+        let hasPanels = false;
+        for (const c of children) {
+          const cw = c.style.width;
+          if (cw && (cw.includes('50%') || cw.includes('65%') || cw.includes('35%'))) hasPanels = true;
+          const cf = c.style.flex;
+          if (cf && parseFloat(cf) >= 0.3 && children.length <= 4) hasPanels = true;
+        }
+        if (hasPanels) {
+          s.flexDirection = 'column';
+          // Reset child fixed widths
+          for (const c of children) {
+            const cw = c.style.width;
+            if (cw && cw.includes('%') && parseFloat(cw) < 100) c.style.width = '100%';
+          }
+        }
+      }
+    });
+
+    // Collapse grids to fewer columns
+    document.querySelectorAll('.slide [style*="grid-template-columns"]').forEach(el => {
+      const cols = el.style.gridTemplateColumns;
+      if (!cols) return;
+      const numCols = cols.split(/\s+/).filter(c => c.trim()).length;
+      if (numCols >= 4) el.style.gridTemplateColumns = '1fr 1fr';
+      else if (numCols === 3) el.style.gridTemplateColumns = '1fr';
+    });
+
+    // --- Slide-specific fixes ---
+
+    // S2 Problem: reduce padding
+    const s2 = document.getElementById('s2-problem');
+    if (s2) {
+      const inner = s2.querySelector('div[style]');
+      if (inner) inner.style.padding = '32px 24px';
+    }
+
+    // S3 Solution: stack text + image
+    const s3 = document.getElementById('s3-solution');
+    if (s3) {
+      const wrapper = s3.querySelector('div[style*="display:flex"]');
+      if (wrapper) {
+        wrapper.style.flexDirection = 'column';
+        Array.from(wrapper.children).forEach(c => {
+          if (c.style.width) c.style.width = '100%';
+          if (c.style.height === '100%') c.style.height = '50vh';
+        });
+      }
+    }
+
+    // S4 At-a-Glance: stack the main card
+    const s4 = document.getElementById('s4-glance');
+    if (s4) {
+      const card = s4.querySelector('div[style*="display:flex"][style*="gap:0"]');
+      if (card) {
+        card.style.flexDirection = 'column';
+        card.style.minHeight = 'auto';
+        // Mission text: allow wrapping
+        const missionDiv = card.querySelector('div[style*="white-space:nowrap"]');
+        if (missionDiv) missionDiv.style.whiteSpace = 'normal';
+        // Remove border-right from left panel, add border-bottom
+        const leftPanel = card.children[0];
+        if (leftPanel) {
+          leftPanel.style.borderRight = 'none';
+          leftPanel.style.borderBottom = '1px solid rgba(0,0,0,.06)';
+          leftPanel.style.paddingBottom = '16px';
+        }
+        // Revenue bars panel: remove border-left
+        const rightPanel = card.children[2];
+        if (rightPanel) {
+          rightPanel.style.borderLeft = 'none';
+          rightPanel.style.borderTop = '1px solid rgba(0,0,0,.06)';
+        }
+      }
+    }
+
+    // S5 Competitive: stack text + quadrant; rescale ad collage
+    const s5comp = document.getElementById('s5-competitive');
+    if (s5comp) {
+      const layout = s5comp.querySelector('div[style*="display:flex"][style*="align-items:center"]');
+      if (layout) {
+        layout.style.flexDirection = 'column';
+        layout.style.alignItems = 'stretch';
+        Array.from(layout.children).forEach(c => {
+          c.style.flex = 'none';
+          c.style.padding = '16px 24px';
+        });
+      }
+      // Shrink ad collage
+      const collage = s5comp.querySelector('div[style*="position:relative"][style*="height:230px"]');
+      if (collage) {
+        collage.style.height = '140px';
+        collage.style.width = '100%';
+        collage.style.transform = 'scale(0.7)';
+        collage.style.transformOrigin = 'left top';
+      }
+      // Shrink quadrant
+      const quad = s5comp.querySelector('div[style*="width:420px"][style*="height:420px"]');
+      if (quad) {
+        quad.style.width = '280px';
+        quad.style.height = '280px';
+        quad.style.margin = '0 auto';
+      }
+    }
+
+    // S6 Thesis: stack the 3 cards vertically
+    const s6 = document.getElementById('s6-thesis');
+    if (s6) {
+      const cardsRow = s6.querySelector('div[style*="display:flex"][style*="gap:20px"]');
+      if (cardsRow) {
+        cardsRow.style.flexDirection = 'column';
+        cardsRow.style.gap = '12px';
+        cardsRow.style.overflowY = 'auto';
+        Array.from(cardsRow.children).forEach(card => {
+          card.style.flex = 'none';
+          // Make card image shorter
+          const imgDiv = card.querySelector('div[style*="flex:1"][style*="min-height:0"]');
+          if (imgDiv) { imgDiv.style.flex = 'none'; imgDiv.style.height = '120px'; }
+          // Auto-height text area
+          const textDiv = card.querySelector('div[style*="height:195px"]');
+          if (textDiv) textDiv.style.height = 'auto';
+        });
+      }
+    }
+
+    // S7 Revenue: stack chart + callout panel
+    const s7 = document.getElementById('s7-revenue');
+    if (s7) {
+      const chartRow = s7.querySelector('div[style*="display:flex"][style*="gap:24px"]');
+      if (chartRow) {
+        chartRow.style.flexDirection = 'column';
+        chartRow.style.marginTop = '16px';
+        // Callout panel → horizontal row
+        const callout = chartRow.querySelector('div[style*="width:180px"]');
+        if (callout) {
+          callout.style.width = '100%';
+          callout.style.flexDirection = 'row';
+          callout.style.gap = '12px';
+          callout.style.padding = '12px 0';
+          callout.style.borderTop = '1px solid rgba(0,0,0,.06)';
+          Array.from(callout.children).forEach(c => {
+            const num = c.querySelector('div[style*="font-size:36px"]');
+            if (num) num.style.fontSize = '24px';
+          });
+        }
+      }
+    }
+
+    // S8 Retention: stack two panels
+    const s8 = document.getElementById('s8-retention');
+    if (s8) {
+      const panels = s8.querySelector('div[style*="display:flex"][style*="gap:48px"]');
+      if (panels) {
+        panels.style.flexDirection = 'column';
+        panels.style.gap = '20px';
+      }
+    }
+
+    // S9 CAC: stack two panels
+    const s9 = document.getElementById('s9-cac');
+    if (s9) {
+      const panels = s9.querySelector('div[style*="display:flex"][style*="gap:48px"]');
+      if (panels) {
+        panels.style.flexDirection = 'column';
+        panels.style.gap = '20px';
+      }
+    }
+
+    // S10 Channels: hide floating callouts, fix chart margins
+    const s10 = document.getElementById('s10-channels');
+    if (s10) {
+      // Hide floating callout cards
+      const floats = s10.querySelector('div[style*="position:absolute"][style*="left:64px"]');
+      if (floats) floats.style.display = 'none';
+      // Fix chart container
+      const chartArea = s10.querySelector('div[style*="display:flex"][style*="align-items:flex-end"][style*="gap:20px"]');
+      if (chartArea) {
+        chartArea.style.margin = '12px 20px 0';
+        chartArea.style.padding = '8px 0 16px';
+        chartArea.style.gap = '6px';
+      }
+    }
+
+    // S11 Retail: hide right image, make main panel full-width
+    const s11 = document.getElementById('s13-retail');
+    if (s11) {
+      const rightImg = s11.querySelector('div[style*="position:absolute"][style*="right:0"]');
+      if (rightImg) rightImg.style.display = 'none';
+      const mainPanel = s11.querySelector('div[style*="width:65%"]');
+      if (mainPanel) { mainPanel.style.width = '100%'; mainPanel.style.padding = '24px 20px 0'; }
+      // Stack timeline + bar chart
+      const cols = s11.querySelector('div[style*="display:flex"][style*="gap:36px"]');
+      if (cols) {
+        cols.style.flexDirection = 'column';
+        cols.style.gap = '20px';
+        const barChart = cols.querySelector('div[style*="width:220px"]');
+        if (barChart) barChart.style.width = '100%';
+      }
+    }
+
+    // S12 Brand: stack partnership cards
+    const s12 = document.getElementById('s12-brand');
+    if (s12) {
+      const cards = s12.querySelector('div[style*="display:flex"][style*="gap:12px"]');
+      if (cards && cards.children.length >= 4) {
+        cards.style.display = 'grid';
+        cards.style.gridTemplateColumns = '1fr 1fr';
+        cards.style.gap = '8px';
+        Array.from(cards.children).forEach(c => {
+          c.style.flex = 'none';
+          c.style.height = '140px';
+        });
+      }
+      // Shrink press logos
+      const logos = s12.querySelector('div[style*="display:flex"][style*="gap:28px"]');
+      if (logos) {
+        logos.style.gap = '12px';
+        logos.style.flexWrap = 'wrap';
+        logos.querySelectorAll('img').forEach(img => { img.style.width = '60px'; });
+      }
+    }
+
+    // S14 Team: 2-col grid
+    const s14 = document.getElementById('s14-team');
+    if (s14) {
+      s14.querySelectorAll('div[style*="grid-template-columns:repeat"]').forEach(g => {
+        g.style.gridTemplateColumns = '1fr 1fr';
+        g.style.gap = '12px';
+      });
+      // Smaller avatars
+      s14.querySelectorAll('div[style*="width:80px"][style*="height:80px"]').forEach(a => {
+        a.style.width = '48px';
+        a.style.height = '48px';
+      });
+    }
+
+    // S15 Proceeds: stack 3 columns
+    const s15 = document.getElementById('s15-proceeds');
+    if (s15) {
+      const cols = s15.querySelector('div[style*="display:flex"][style*="gap:28px"]');
+      if (cols) {
+        cols.style.flexDirection = 'column';
+        cols.style.gap = '16px';
+        Array.from(cols.children).forEach(c => {
+          c.style.flex = 'none';
+          const imgDiv = c.querySelector('div[style*="flex:1"]');
+          if (imgDiv) { imgDiv.style.flex = 'none'; imgDiv.style.height = '160px'; }
+          const hDiv = c.querySelector('div[style*="height:90px"]');
+          if (hDiv) hDiv.style.height = 'auto';
+        });
+      }
+    }
+
+  })();
+}
 
 show(0);
 </script>
