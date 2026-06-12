@@ -1278,11 +1278,10 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
       </div>
     </div>
 
-    <!-- Content: Table + Sidebar -->
-    <div style="flex:1;display:flex;gap:28px;align-items:center">
+    <!-- Content: Full-width Table -->
+    <div style="flex:1;display:flex;align-items:center">
 
-      <!-- LEFT: Retention Heatmap Table -->
-      <div style="flex:1.4">
+      <div style="width:100%">
         <div style="font-size:8px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--wine);margin-bottom:6px">SUBSCRIBER RETENTION HEATMAP &mdash; % STILL ACTIVE</div>
         <table style="width:100%;border-collapse:collapse;font-size:9px;font-family:'DM Sans',sans-serif">
           <thead>
@@ -1322,28 +1321,6 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
           </tbody>
         </table>
         <div style="font-size:9px;color:var(--lt-mut);line-height:1.55;margin-top:6px">Post-capsule cohorts (Nov '25+) show M1 retention <strong style="color:var(--lt-ink)">78&ndash;89%</strong> vs pre-capsule average of <strong style="color:var(--lt-ink)">~80%</strong>. May '26 (1,220 subs) is the largest cohort with the highest M1 on record. Cohort sizes growing 3&times; while retention holds.</div>
-      </div>
-
-      <!-- RIGHT: Key metrics -->
-      <div style="flex:0.45;display:flex;flex-direction:column;gap:12px">
-        <!-- CAC -->
-        <div style="background:var(--sand);border-radius:8px;padding:16px 18px">
-          <div style="font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:4px">BLENDED CAC (Q2 '26)</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--lt-ink);line-height:1">$130</div>
-          <div style="font-size:9px;color:var(--lt-mut);margin-top:3px">Down 33% from Q4 '25 peak</div>
-        </div>
-        <!-- LTV -->
-        <div style="background:var(--sand);border-radius:8px;padding:16px 18px">
-          <div style="font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--lt-mut);margin-bottom:4px">CUM. REV / SUBSCRIBER (M6)</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--wine);line-height:1">$258</div>
-          <div style="font-size:9px;color:var(--lt-mut);margin-top:3px">+12% vs pre-capsule cohorts at same age</div>
-        </div>
-        <!-- LTV:CAC -->
-        <div style="background:var(--wine);border-radius:8px;padding:16px 18px">
-          <div style="font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px">LTV : CAC TARGET</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#fff;line-height:1">3&times;</div>
-          <div style="font-size:9px;color:rgba(255,255,255,.65);margin-top:3px">By M12 at current retention pace</div>
-        </div>
       </div>
 
     </div>
