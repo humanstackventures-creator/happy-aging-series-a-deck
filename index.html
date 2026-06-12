@@ -788,119 +788,7 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 </div>
 
 <!-- ============================================ -->
-<!-- SLIDE 9 · UNIT ECONOMICS — CAC ONLY (modified from v6) -->
-<!-- ============================================ -->
-<div class="slide light" id="s9-cac" style="background:#FAFAFA">
-  <div style="width:100%;height:100%;display:flex;flex-direction:column;position:relative;z-index:2;padding:32px 64px 0">
-    <!-- Headline -->
-    <div style="margin-bottom:12px">
-      <div style="font-family:'Inter',sans-serif;font-weight:500;font-size:36px;color:var(--lt-ink);line-height:1.25;letter-spacing:-.3px;max-width:1000px">
-        ...and <span style="color:var(--wine);font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;font-size:43px">unit economics</span> that improve every cohort
-      </div>
-    </div>
-    <!-- Charts wrapper — two panels side by side -->
-    <div style="flex:1;display:flex;gap:48px;align-items:stretch">
-    <!-- LEFT: CAC chart -->
-    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
-      <div style="margin-bottom:8px">
-        <div style="font-size:16px;font-weight:600;color:var(--lt-ink);margin-bottom:1px">Customer Acquisition Cost</div>
-        <div style="font-size:11px;color:var(--lt-mut)">Quarterly average · blended CAC</div>
-      </div>
-      <div style="display:flex;align-items:flex-end;gap:16px;padding-bottom:16px;position:relative">
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-          <div style="font-size:12px;font-weight:700;color:var(--lt-mut2)">$118</div>
-          <div style="width:100%;height:130px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.3)"></div>
-        </div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-          <div style="font-size:12px;font-weight:700;color:var(--lt-mut2)">$167</div>
-          <div style="width:100%;height:184px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.4)"></div>
-        </div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-          <div style="font-size:12px;font-weight:700;color:var(--lt-mut2)">$192</div>
-          <div style="width:100%;height:212px;border-radius:4px 4px 0 0;background:rgba(180,175,168,.5)"></div>
-        </div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-          <div style="font-size:12px;font-weight:700;color:var(--lt-ink)">$127</div>
-          <div style="width:100%;height:140px;border-radius:4px 4px 0 0;background:rgba(192,65,76,.8)"></div>
-        </div>
-        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px">
-          <div style="font-size:12px;font-weight:700;color:var(--wine)">$130</div>
-          <div style="width:100%;height:143px;border-radius:4px 4px 0 0;background:var(--wine)"></div>
-        </div>
-      </div>
-      <div style="display:flex;border-top:1px solid rgba(0,0,0,.06);padding-top:6px">
-        <div style="flex:1;text-align:center;font-size:10px;color:var(--lt-mut)">Q2 '25</div>
-        <div style="flex:1;text-align:center;font-size:10px;color:var(--lt-mut)">Q3 '25</div>
-        <div style="flex:1;text-align:center;font-size:10px;color:var(--lt-mut)">Q4 '25</div>
-        <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-ink)">Q1 '26</div>
-        <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-ink)">Q2 '26</div>
-      </div>
-      <div style="margin-top:10px;font-size:11px;font-weight:600;font-style:italic;color:var(--lt-ink);text-align:center">CAC compressed 33% from peak as channel mix and creative efficiency improved</div>
-    </div>
-    <!-- RIGHT: LTV / Cumulative Revenue per Subscriber -->
-    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
-      <div style="margin-bottom:8px">
-        <div style="font-size:16px;font-weight:600;color:var(--lt-ink);margin-bottom:1px">Cumulative Revenue per Subscriber</div>
-        <div style="display:flex;align-items:center;gap:16px;margin-top:4px">
-          <div style="display:flex;align-items:center;gap:6px"><div style="width:20px;height:2px;background:var(--wine);border-radius:1px"></div><div style="font-size:10px;color:var(--lt-mut)">Post-Capsules (Nov '25+)</div></div>
-          <div style="display:flex;align-items:center;gap:6px"><div style="width:20px;height:2px;background:rgba(180,175,168,.6);border-radius:1px"></div><div style="font-size:10px;color:var(--lt-mut)">Pre-Capsules (Mar – Oct '25)</div></div>
-        </div>
-      </div>
-      <!-- SVG Chart -->
-      <div style="position:relative;width:100%;height:240px;margin-top:8px">
-        <svg viewBox="0 0 400 200" style="width:100%;height:100%" preserveAspectRatio="none">
-          <!-- Grid lines -->
-          <line x1="0" y1="0" x2="400" y2="0" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
-          <line x1="0" y1="50" x2="400" y2="50" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
-          <line x1="0" y1="100" x2="400" y2="100" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
-          <line x1="0" y1="150" x2="400" y2="150" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
-          <line x1="0" y1="200" x2="400" y2="200" stroke="rgba(0,0,0,.06)" stroke-width="0.5"/>
-          <!-- Pre-capsules line (taupe) -->
-          <polyline points="0,175 67,140 133,115 200,100 267,85 333,72 400,56" fill="none" stroke="rgba(180,175,168,.6)" stroke-width="2"/>
-          <!-- Post-capsules line (wine) -->
-          <polyline points="0,165 67,120 133,90 200,68 267,55 333,42" fill="none" stroke="var(--wine)" stroke-width="2.5"/>
-          <!-- Comparison dot on post-capsules at month 6 -->
-          <circle cx="133" cy="90" r="5" fill="var(--wine)"/>
-        </svg>
-        <!-- Y-axis labels -->
-        <div style="position:absolute;left:-8px;top:-4px;font-size:8px;color:var(--lt-mut)">$400</div>
-        <div style="position:absolute;left:-8px;top:21%;font-size:8px;color:var(--lt-mut)">$300</div>
-        <div style="position:absolute;left:-8px;top:46%;font-size:8px;color:var(--lt-mut)">$200</div>
-        <div style="position:absolute;left:-8px;top:71%;font-size:8px;color:var(--lt-mut)">$100</div>
-        <div style="position:absolute;left:-4px;bottom:-2px;font-size:8px;color:var(--lt-mut)">$0</div>
-        <!-- X-axis labels -->
-        <div style="position:absolute;bottom:-16px;left:0;font-size:8px;color:var(--lt-mut)">Month 1</div>
-        <div style="position:absolute;bottom:-16px;left:33%;font-size:8px;color:var(--lt-mut)">Month 6</div>
-        <div style="position:absolute;bottom:-16px;left:66%;font-size:8px;color:var(--lt-mut)">Month 12</div>
-        <div style="position:absolute;bottom:-16px;right:0;font-size:8px;color:var(--lt-mut)">Month 18</div>
-        <!-- Callouts -->
-        <div style="position:absolute;top:24%;left:36%;font-size:11px;font-weight:700;color:var(--wine)">$258</div>
-        <div style="position:absolute;top:50%;left:36%;font-size:9px;color:var(--lt-mut)">$231</div>
-        <div style="position:absolute;top:18%;left:48%;font-size:9px;font-weight:600;color:var(--wine)">+12% at same age</div>
-      </div>
-      <!-- Retention stats row -->
-      <div style="display:flex;gap:12px;margin-top:28px;border-top:1px solid rgba(0,0,0,.06);padding-top:12px">
-        <div style="flex:1">
-          <div style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lt-mut)">M1 Retention</div>
-          <div style="font-size:13px;color:var(--lt-ink);margin-top:2px">83% → <span style="font-weight:700;font-size:18px;color:var(--wine)">87%</span> <span style="font-size:10px;color:var(--lt-mut)">+400 bps</span></div>
-        </div>
-        <div style="flex:1">
-          <div style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lt-mut)">M3 Retention</div>
-          <div style="font-size:13px;color:var(--lt-ink);margin-top:2px">50% → <span style="font-weight:700;font-size:18px;color:var(--wine)">61%</span> <span style="font-size:10px;color:var(--lt-mut)">+1,100 bps</span></div>
-        </div>
-        <div style="flex:1">
-          <div style="font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--lt-mut)">M6 Retention</div>
-          <div style="font-size:13px;color:var(--lt-ink);margin-top:2px">29% → <span style="font-weight:700;font-size:18px;color:var(--wine)">36%</span> <span style="font-size:10px;color:var(--lt-mut)">+700 bps</span></div>
-        </div>
-      </div>
-    </div>
-    </div><!-- end charts wrapper -->
-    <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>09</span></div>
-  </div>
-</div>
-
-<!-- ============================================ -->
-<!-- SLIDE 10 · CHANNEL MIX + 5-YEAR PROJECTION (modified) -->
+<!-- SLIDE 9 · CHANNEL MIX + 5-YEAR PROJECTION -->
 <!-- ============================================ -->
 <div class="slide light" id="s10-channels" style="background:#FAFAFA">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;position:relative;z-index:2">
@@ -1003,12 +891,12 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
       <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--lt-mut)">FY30E</div>
       <div style="flex:1;text-align:center;font-size:10px;font-weight:600;color:var(--wine)">FY31E</div>
     </div>
-    <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>10</span></div>
+    <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>09</span></div>
   </div>
 </div>
 
 <!-- ============================================ -->
-<!-- SLIDE 11 · RETAIL (moved after channels) -->
+<!-- SLIDE 10 · RETAIL -->
 <!-- ============================================ -->
 <div class="slide light" id="s13-retail">
   <!-- Full-height image on right -->
@@ -1155,11 +1043,11 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
     </div>
 
   </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>11</span></div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>10</span></div>
 </div>
 
 <!-- ============================================ -->
-<!-- SLIDE 12 · BRAND + COMMUNITY (merged) -->
+<!-- SLIDE 11 · BRAND + COMMUNITY -->
 <!-- ============================================ -->
 <div class="slide light" id="s12-brand" style="background:#FAFAFA">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;padding:28px 64px 24px;position:relative;z-index:2">
@@ -1230,11 +1118,11 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
     </div>
 
   </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>12</span></div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>11</span></div>
 </div>
 
 <!-- ============================================ -->
-<!-- SLIDE 14 · TEAM (same as v6) -->
+<!-- SLIDE 12 · TEAM -->
 <!-- ============================================ -->
 <div class="slide light" id="s14-team">
   <div style="display:flex;flex-direction:column;width:100%;height:100%;padding:32px 64px 48px">
@@ -1245,93 +1133,59 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
 
     <!-- Row 1: Core Operating Team (4 people) -->
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:28px">
-
       <!-- Eduardo -->
       <div style="display:flex;flex-direction:column;align-items:flex-start">
         <div style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;overflow:hidden"><img src="Images%20Deck/eduardo-vanzak.png" alt="Eduardo Vanzak" style="width:100%;height:100%;object-fit:cover"></div>
         <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:var(--lt-ink);line-height:1.2">Eduardo Vanzak</div>
         <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid var(--lt-border);color:var(--lt-ink);margin:6px 0 8px;letter-spacing:.02em">Founder & CEO</div>
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">Founded Desinch&aacute; (Acquired)<br>Founded Hidratei ($70M ARR)<br>15+ Years in the CPG space</div>
-        <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
-          <img src="Images%20Deck/hidratei-logo.png" alt="Hidratei" style="height:40px;object-fit:contain;opacity:.85">
-          <img src="Images%20Deck/desincha-logo.png" alt="Desincha" style="height:40px;object-fit:contain;opacity:.85">
-        </div>
       </div>
-
       <!-- JP -->
       <div style="display:flex;flex-direction:column;align-items:flex-start">
         <div style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;overflow:hidden"><img src="Images%20Deck/jp-matavelli.png" alt="JP Matavelli" style="width:100%;height:100%;object-fit:cover"></div>
         <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:var(--lt-ink);line-height:1.2">JP Matavelli</div>
         <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid var(--lt-border);color:var(--lt-ink);margin:6px 0 8px;letter-spacing:.02em">Chief Operating Officer</div>
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">Ex-COO at Hidratei ($70M ARR)</div>
-        <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
-          <img src="Images%20Deck/hidratei-logo.png" alt="Hidratei" style="height:40px;object-fit:contain;opacity:.85">
-          <img src="Images%20Deck/humanx-logo.png" alt="HumanX" style="height:20px;object-fit:contain;opacity:.85">
-        </div>
       </div>
-
       <!-- Poli -->
       <div style="display:flex;flex-direction:column;align-items:flex-start">
         <div style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;overflow:hidden;background:#808080"><img src="Images%20Deck/poli-alves.png" alt="Poli Alves" style="width:100%;height:100%;object-fit:cover"></div>
         <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:var(--lt-ink);line-height:1.2">Poli Alves</div>
         <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid var(--lt-border);color:var(--lt-ink);margin:6px 0 8px;letter-spacing:.02em">Head of Growth</div>
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">Ex-Head of Growth at Hidratei<br>($70M ARR)</div>
-        <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
-          <img src="Images%20Deck/hidratei-logo.png" alt="Hidratei" style="height:40px;object-fit:contain;opacity:.85">
-        </div>
       </div>
-
       <!-- Lucas -->
       <div style="display:flex;flex-direction:column;align-items:flex-start">
         <div style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;overflow:hidden"><img src="Images%20Deck/lucas-tavares.png" alt="Lucas Tavares" style="width:100%;height:100%;object-fit:cover"></div>
         <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:var(--lt-ink);line-height:1.2">Lucas Tavares</div>
         <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid var(--lt-border);color:var(--lt-ink);margin:6px 0 8px;letter-spacing:.02em">Head of Strategy</div>
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">Ex-M&A Associate at<br>MarketAxess (NASDAQ: MKTX)<br>UC Berkeley (UGBA)</div>
-        <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
-          <img src="Images%20Deck/berkeley-logo.png" alt="Berkeley" style="height:20px;object-fit:contain;opacity:.85">
-          <img src="Images%20Deck/marketaxess-logo.png" alt="MarketAxess" style="height:32px;object-fit:contain;opacity:.85">
-        </div>
       </div>
-
     </div>
 
     <!-- Row 2: Founding Partners + Coefficient -->
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;align-items:start">
-
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:start">
       <!-- Martha -->
       <div style="display:flex;flex-direction:column;align-items:flex-start">
         <div style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;overflow:hidden"><img src="Images%20Deck/martha-graeff.png" alt="Martha Graeff" style="width:100%;height:100%;object-fit:cover"></div>
         <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:var(--lt-ink);line-height:1.2">Martha Graeff</div>
         <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(192,65,76,.08);color:var(--wine);margin:6px 0 8px;letter-spacing:.02em">Founding Partner</div>
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">600K Social Media Followers<br>Wellness Celebrity</div>
-        <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
-          <img src="Images%20Deck/vogue-logo.png" alt="Vogue" style="height:20px;object-fit:contain;opacity:.85;mix-blend-mode:multiply">
-        </div>
       </div>
-
       <!-- Dr. Daniel -->
       <div style="display:flex;flex-direction:column;align-items:flex-start">
         <div style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;overflow:hidden"><img src="Images%20Deck/daniel-yadegar.png" alt="Dr Daniel Yadegar" style="width:100%;height:100%;object-fit:cover"></div>
         <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:var(--lt-ink);line-height:1.2">Dr Daniel Yadegar</div>
         <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(192,65,76,.08);color:var(--wine);margin:6px 0 8px;letter-spacing:.02em">Founding Partner</div>
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">Longevity reference in the US<br>Harvard & Cornell Trained<br>Medical Doctor</div>
-        <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
-          <img src="Images%20Deck/harvard-logo.png" alt="Harvard" style="height:20px;object-fit:contain;opacity:.85;mix-blend-mode:multiply">
-          <img src="Images%20Deck/cornell-logo.png" alt="Cornell" style="height:20px;object-fit:contain;opacity:.85;mix-blend-mode:multiply">
-        </div>
       </div>
-
       <!-- Carla -->
       <div style="display:flex;flex-direction:column;align-items:flex-start">
         <div style="width:80px;height:80px;border-radius:50%;margin-bottom:10px;overflow:hidden"><img src="Images%20Deck/carla-vanzak.png" alt="Carla Vanzak" style="width:100%;height:100%;object-fit:cover"></div>
         <div style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;font-weight:700;color:var(--lt-ink);line-height:1.2">Carla Vanzak</div>
         <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;background:rgba(192,65,76,.08);color:var(--wine);margin:6px 0 8px;letter-spacing:.02em">Founding Partner</div>
         <div style="font-size:11px;color:var(--lt-mut);line-height:1.5">Years of experience in brand<br>building</div>
-        <div style="display:flex;gap:10px;margin-top:auto;padding-top:10px;align-items:center">
-          <img src="Images%20Deck/brazilfoundation-logo.png" alt="BrazilFoundation" style="height:20px;object-fit:contain;opacity:.85">
-        </div>
       </div>
-
       <!-- Coefficient Capital card -->
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;background:#fff;border:1px solid var(--lt-border);border-radius:14px;text-align:center">
         <div style="font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--lt-mut2);margin-bottom:6px">Backed by world class investors:</div>
@@ -1340,15 +1194,14 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
         <div style="display:inline-flex;font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid var(--lt-border);color:var(--lt-ink);margin-bottom:6px;letter-spacing:.02em">Seed Investors</div>
         <div style="font-size:11px;color:var(--lt-mut)">Lead Investors at Seed Round</div>
       </div>
-
     </div>
 
   </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>14</span></div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>12</span></div>
 </div>
 
 <!-- ============================================ -->
-<!-- SLIDE 15 · USE OF PROCEEDS (NEW) -->
+<!-- SLIDE 13 · USE OF PROCEEDS -->
 <!-- ============================================ -->
 <div class="slide light" id="s15-proceeds" style="background:#FAFAFA">
   <div style="width:100%;height:100%;display:flex;flex-direction:column;padding:40px 64px 48px;position:relative;z-index:2">
@@ -1397,11 +1250,11 @@ body { background:#0c0c0d; display:flex; flex-direction:column; align-items:cent
     </div>
 
   </div>
-  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>15</span></div>
+  <div class="foot"><img src="Images%20Deck/HappyAging_BrandAssets_Wordkmark%20-%20White.png" class="foot-logo" alt="Happy Aging"><span>13</span></div>
 </div>
 
 <!-- ============================================ -->
-<!-- SLIDE 16 · CLOSING (same as v6) -->
+<!-- SLIDE 14 · CLOSING -->
 <!-- ============================================ -->
 <div class="slide dark" id="s16-closing" style="background:none">
   <img src="Images%20Deck/ha-cover-new.png" alt="Happy Aging" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
